@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Web Audio API</title>
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="static/js/bufferloader.js"></script>
+  
+  <button onclick ="startNow()">Start</button>
+  <button onclick ="stopNow()">Stop</button>
+<input id="location" type="range"  min="0" max="100" value="0"/>
+
+
+<button onclick="record()">Record</button>
+<button onclick="stop()">Stop</button>
+
+
+
+
+  <script>
+	// Create Annonomuos Self Executing Function
+window.onload = init;
+var context;
+var bufferLoader;
+var buffers =[];
+var sourceList;
+
+var startOffset = 0;
+var startTime = 0;
+
+function init() {
+  // Fix up prefixing
+  window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  context = new AudioContext();
+
+  bufferLoader = new BufferLoader(
+    context,
+    [
+      "static/music/alto.wav",
+		"static/music/bari.wav",
+		"static/music/bass.wav",
+		"static/music/mezz.wav",
+		"static/music/sop.wav",
+		"static/music/ten.wav",
+    ],
+    finishedLoading
+    );
+
+  bufferLoader.load();
+}
+
+//sends buffered list to global variable for easy access
+function finishedLoading(bufferList) {
+  // Create two sources and play them both together.
+  	buffers = bufferList;
+	var songLength = buffers[0].duration;
+	console.log("maxLength: "+songLength);
+	$("#location").attr("max", songLength);
+  }
+
+
+// //sets up start 
+//   window.addEventListener("keydown",onKeyDown); // Create Event Listener for KeyDown
+// 	function onKeyDown(e){
+// 		switch (e.keyCode) {
+// 			// X
+// 			case 88: 
+// 			playAll(buffers);
+// 			break;		
+// 		}
+//  	}
+
+var startNow = function(){playAll(buffers);}
+var stopNow = function(){stopAll(sourceList);}
+
+
+var playAll = function(bufferList) {
+  	sourceList=[];
+		for (var i=0; i<bufferList.length;i++){
+			var currentSource = context.createBufferSource();
+			currentSource.buffer = bufferList[i];
+			currentSource.connect(context.destination); 
+			sourceList[i]=currentSource;
+		}
+		for (var i=0; i<sourceList.length;i++){ 
+			sourceList[i].start(0,startOffset);
+		}
+	}
+
+var stopAll = function(sourceList){
+	for (var i=0; i<sourceList.length;i++){
+		sourceList[i].stop();
+	}
+}
+
+
+$("[type=range]").change(function(){
+    	startOffset = $(this).val();
+    	console.log(startOffset);
+ 	 });
+</script>
+ 
+
+
+
+
+<script src="static/js/recorder.js"></script>
+<script src="static/js/liveRecord.js"></script>
+
+
+</body>
+</html>
