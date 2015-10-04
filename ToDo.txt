@@ -1,3 +1,1 @@
-* Countdown after record so it doesn't immediately launch into playing/recording
-* Make recorderJS work within same AudioContext
-* Save recording so that it is played with rest of recordings.
+* Check if timing is an issue?
