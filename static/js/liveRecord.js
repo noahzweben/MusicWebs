@@ -4,10 +4,8 @@ var navigator = window.navigator;
 // audio
 var mediaStream;
 var rec;
+var startLayer;
 
-// video
-var videoMediaStream;
-var video;
 
 navigator.getUserMedia = (
   navigator.getUserMedia ||
@@ -33,6 +31,7 @@ function record() {
   }, function(err){
     console.log('Not supported');
   });
+  startLayer = startOffset;
 }
 
 function stop() {
@@ -71,7 +70,7 @@ function layerRecording() {
   getSound.onload = function() {
     context.decodeAudioData(getSound.response, function(buffer){
       newBuffer = buffer; // Decode the Audio Data and Store it in a Variable
-      buffers.push(newBuffer);
+      buffers.push([newBuffer,startLayer]);
     });
     
   }

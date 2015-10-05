@@ -6,7 +6,6 @@ var buffers =[];
 var sourceList=[];
 
 var startOffset = 0;
-var startTime = 0;
 
 function init() {
   // Fix up prefixing
@@ -16,12 +15,13 @@ function init() {
   bufferLoader = new BufferLoader(
     context,
     [
-      "static/music/alto.wav",
-		"static/music/bari.wav",
-		"static/music/bass.wav",
-		"static/music/mezz.wav",
-		"static/music/sop.wav",
-		"static/music/ten.wav",
+  //     "static/music/alto.wav",
+		// "static/music/bari.wav",
+		// "static/music/bass.wav",
+		// "static/music/mezz.wav",
+		// "static/music/sop.wav",
+		// "static/music/ten.wav",
+		"static/music/timshel.m4a",
     ],
     finishedLoading
     );
@@ -33,11 +33,13 @@ function init() {
 
 //sends buffered list to global variable for easy access
 function finishedLoading(bufferList) {
-  // Create two sources and play them both together.
-  	buffers = bufferList;
-	var songLength = buffers[0].duration;
+	for (var i=0;i<bufferList.length;i++) {
+		buffers.push([bufferList[i],0]);
+	}
+  	//buffers = bufferList;
+	var songLength = buffers[0][0].duration;
 	console.log("maxLength: "+songLength);
-	$("#location").attr("max", songLength);
+	$("#location").attr("max", songLength); //sets trackbar's max length at song end
   }
 
 
@@ -49,13 +51,26 @@ var playAll = function(bufferList) {
   	sourceList=[];
 		for (var i=0; i<bufferList.length;i++){
 			var currentSource = context.createBufferSource();
-			console.log(i);
-			currentSource.buffer = bufferList[i];
+			currentSource.buffer = bufferList[i][0];
+			currentSource.startLayer = bufferList[i][1];
 			currentSource.connect(context.destination); 
 			sourceList[i]=currentSource;
 		}
-		for (var i=0; i<sourceList.length;i++){ 
-			sourceList[i].start(0,startOffset);
+		for (var i=0; i<sourceList.length;i++){
+
+			//manages starting added recordings at correct time stamp
+
+			//if the layer is supposed to start later than the set play time,
+			// delays the layer  
+			if (sourceList[i].startLayer-startOffset>0){
+				sourceList[i].start(context.currentTime+(sourceList[i].startLayer-startOffset));
+			}
+			//If the layers is supposed to start before or at the set play time,
+			//jumps forward to the point in the layer that corresponds with start time
+			else {
+				sourceList[i].start(0,startOffset-sourceList[i].startLayer);
+			}
+			
 		}
 	}
 
@@ -70,5 +85,4 @@ var stopAll = function(sourceList){
 
 $("[type=range]").change(function(){
     	startOffset = $(this).val();
-    	console.log(startOffset);
  	 });
