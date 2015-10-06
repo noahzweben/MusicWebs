@@ -12,10 +12,10 @@ input[type=range]{
 
 input[type=range]::-webkit-slider-runnable-track {
     
-    height: 5px;
-    background: #ddd;
+    height: 15px;
+    background: #ccc;
     border: none;
-    border-radius: 3px;
+    border-radius: 10px;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -24,8 +24,7 @@ input[type=range]::-webkit-slider-thumb {
     height: 16px;
     width: 16px;
     border-radius: 50%;
-    background: green;
-    margin-top: -4px;
+    background: gray ;
 }
 
 input[type=range]:focus {
@@ -43,13 +42,11 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 <body>
  
   
-  <button onclick ="startNow()">Start</button>
-  <button onclick ="stopNow()">Stop</button>
+  <button onclick ="togglePlay()">Start/Stop</button>
 <input id="location" type="range"  min="0" max="100" value="0"/>
 
+<button onclick="toggleRecord()">Start/Stop Recording</button>
 
-<button onclick="record()">Record</button>
-<button onclick="stop()">Stop</button>
 <button onclick="playbackRecorderAudio()">Playback Recording</script>
 <button onclick="layerRecording()">Upload Recording</script>
 

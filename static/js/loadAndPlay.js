@@ -4,7 +4,8 @@ var context;
 var bufferLoader;
 var buffers =[];
 var sourceList=[];
-
+var startedPlay;
+var isPlaying = false;
 var startOffset = 0;
 
 function init() {
@@ -46,8 +47,19 @@ function finishedLoading(bufferList) {
 var startNow = function(){playAll(buffers);}
 var stopNow = function(){stopAll(sourceList);}
 
+var togglePlay = function() {
+	if (isPlaying) {
+		stopNow();
+	} 
+	else {
+		startNow();
+	}
+}
+
 
 var playAll = function(bufferList) {
+	isPlaying = true;
+	startedPlay = context.currentTime;
   	sourceList=[];
 		for (var i=0; i<bufferList.length;i++){
 			var currentSource = context.createBufferSource();
@@ -56,6 +68,7 @@ var playAll = function(bufferList) {
 			currentSource.connect(context.destination); 
 			sourceList[i]=currentSource;
 		}
+		
 		for (var i=0; i<sourceList.length;i++){
 
 			//manages starting added recordings at correct time stamp
@@ -75,14 +88,24 @@ var playAll = function(bufferList) {
 	}
 
 var stopAll = function(sourceList){
-	if (sourceList.length != 0) {
-	for (var i=0; i<sourceList.length;i++){
-		sourceList[i].stop();
-	}
+	isPlaying = false;
+		for (var i=0; i<sourceList.length;i++){
+			sourceList[i].stop();
 	}
 }
 
 
 $("[type=range]").change(function(){
+		wasPlaying = isPlaying;
+		stopNow();
     	startOffset = $(this).val();
+    	if (wasPlaying)	startNow();
  	 });
+
+
+setInterval(function(){
+	if (isPlaying) {
+		document.getElementById("location").stepUp(1);
+		startOffset=parseFloat(startOffset)+1;
+	}
+},1000);

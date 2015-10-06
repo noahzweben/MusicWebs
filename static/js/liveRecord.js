@@ -5,6 +5,7 @@ var navigator = window.navigator;
 var mediaStream;
 var rec;
 var startLayer;
+var isRecording=false;
 
 
 navigator.getUserMedia = (
@@ -15,9 +16,21 @@ navigator.getUserMedia = (
 );
 
 
+function toggleRecord(){
+  if (isRecording) {
+    stop();
+    isRecording = false;
+  } 
+  else {
+    record();
+    isRecording = true;
+  }
+}
+
 
 
 function record() {
+  if (isPlaying) stopNow();
   navigator.getUserMedia({audio: true}, function(localMediaStream){
     mediaStream = localMediaStream;
     var mediaStreamSource = context.createMediaStreamSource(localMediaStream);
@@ -27,7 +40,7 @@ function record() {
 
     playCountdown();
     window.setTimeout(rec.record,3000);
-    window.setTimeout(startNow,3000);
+    window.setTimeout(togglePlay,3000);
   }, function(err){
     console.log('Not supported');
   });
@@ -37,7 +50,7 @@ function record() {
 function stop() {
   mediaStream.stop();
   rec.stop();
-  stopNow();
+  togglePlay();
 
 
 
