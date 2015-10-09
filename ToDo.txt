@@ -1,6 +1,5 @@
 To Do:
 
-— Add recording feature where you can start at whatever time interval during the song. and it knows not to start your layer until the point where you started recording it. So if i start my recording halfway through the song, the next time I hit play instead of starting the recording instantly, it will wait till halfway through to begin.
 
 - Don’t let play be hit more than once. Don’t let upload happen w/o a recording already there etc . . . cover corner cases 
 

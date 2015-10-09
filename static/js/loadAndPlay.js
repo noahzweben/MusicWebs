@@ -58,14 +58,16 @@ var togglePlay = function() {
 
 
 var playAll = function(bufferList) {
+	clearVolumeSlider();
 	isPlaying = true;
 	startedPlay = context.currentTime;
   	sourceList=[];
 		for (var i=0; i<bufferList.length;i++){
 			var currentSource = context.createBufferSource();
 			currentSource.buffer = bufferList[i][0];
-			currentSource.startLayer = bufferList[i][1];
-			currentSource.connect(context.destination); 
+			currentSource.startLayer = bufferList[i][1]; //what Time the layer should start
+			//currentSource.connect(context.destination); 
+			createVolumeSlider(currentSource);
 			sourceList[i]=currentSource;
 		}
 		
@@ -95,7 +97,7 @@ var stopAll = function(sourceList){
 }
 
 
-$("[type=range]").change(function(){
+$("#location[type=range]").change(function(){
 		wasPlaying = isPlaying;
 		stopNow();
     	startOffset = $(this).val();

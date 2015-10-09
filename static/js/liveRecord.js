@@ -20,10 +20,13 @@ function toggleRecord(){
   if (isRecording) {
     stop();
     isRecording = false;
+    $("#playButton").prop("disabled",false);
+
   } 
   else {
     record();
     isRecording = true;
+    $("#playButton").prop("disabled",true);
   }
 }
 

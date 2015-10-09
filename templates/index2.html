@@ -2,55 +2,22 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<style>
-input[type=range]{
-    -webkit-appearance: none;
-    display: block;
-    margin: 20px;
-    width: 600px;
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-    
-    height: 15px;
-    background: #ccc;
-    border: none;
-    border-radius: 10px;
-}
-
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: none;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: gray ;
-}
-
-input[type=range]:focus {
-    outline: none;
-}
-
-input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #ccc;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="static/myStyle.css">
 <title>Web Audio API</title>
 </head>
 
 <body>
  
   
-  <button onclick ="togglePlay()">Start/Stop</button>
+  <button id="playButton" onclick ="togglePlay()">Start/Stop</button>
 <input id="location" type="range"  min="0" max="100" value="0"/>
 
 <button onclick="toggleRecord()">Start/Stop Recording</button>
 
-<button onclick="playbackRecorderAudio()">Playback Recording</script>
-<button onclick="layerRecording()">Upload Recording</script>
+<button onclick="playbackRecorderAudio()">Playback Recording</button>
+<button onclick="layerRecording()">Upload Recording</button>
 
-
+<div id="VolumeBox">Volume Tracks</div>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="static/js/bufferloader.js"></script>
@@ -58,6 +25,7 @@ input[type=range]:focus::-webkit-slider-runnable-track {
  <script src="static/js/recorder.js"></script>
 <script src="static/js/liveRecord.js"></script>
 <script src="static/js/recordCountdown.js"></script>
+<script src="static/js/setViewVolume.js"></script>
 
 
 </body>
