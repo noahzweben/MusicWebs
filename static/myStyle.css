@@ -1,10 +1,11 @@
 
 input[type=range]{
     -webkit-appearance: none;
-    display: block;
+    display: inline-block;
     margin: 20px;
     width: 600px;
 }
+
 
 input[type=range]::-webkit-slider-runnable-track {
     
@@ -29,4 +30,8 @@ input[type=range]:focus {
 
 input[type=range]:focus::-webkit-slider-runnable-track {
     background: #ccc;
+}
+
+#VolumBox > input[type=range]{
+    width: 200px;
 }

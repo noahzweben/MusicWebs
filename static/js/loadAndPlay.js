@@ -67,7 +67,8 @@ var playAll = function(bufferList) {
 			currentSource.buffer = bufferList[i][0];
 			currentSource.startLayer = bufferList[i][1]; //what Time the layer should start
 			//currentSource.connect(context.destination); 
-			createVolumeSlider(currentSource);
+			//createVolumeSlider(currentSource);
+			setUpVolumeNodes(currentSource);
 			sourceList[i]=currentSource;
 		}
 		
