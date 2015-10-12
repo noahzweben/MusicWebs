@@ -1,0 +1,6 @@
+To Do:
+
+
+- Don’t let play be hit more than once. Don’t let upload happen w/o a recording already there etc . . . cover corner cases 
+
+— Be able to mute specific tracks.
