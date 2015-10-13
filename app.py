@@ -5,6 +5,7 @@ app.config['DEBUG'] = True # Enable this only while testing!
 
 @app.route('/')
 def hello():
+	x="hii"
 	return render_template('index2.html')
 
 

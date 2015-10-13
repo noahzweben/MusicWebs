@@ -93,27 +93,6 @@ function stopAll(sourceList){
 	}
 }
 
-//Takes the recorded input from microphone and adds it to the buffer array so can be played.
-//uses methods from recorder.js (https://github.com/jwagener/recorder.js)
-function layerRecording() {
-  var newBuffer;
-  //turns the recording into an wav file and then converts the wav into a audio buffer
-  rec.exportWAV(function(wav) {
-    var url = window.URL.createObjectURL(wav);
-    var getSound = new XMLHttpRequest(); // Load the Sound with XMLHttpRequest
-    getSound.open("GET", url, true);
-    getSound.responseType = "arraybuffer"; // Read as Binary Data
-    getSound.onload = function() {
-      context.decodeAudioData(getSound.response, function(buffer){
-      newBuffer = buffer; // Decode the Audio Data and Store it in a Variable
-      buffers.push([newBuffer,layerStartTime]); //adds the new audio along with the startTime
-    });
-    
-  }
-    getSound.send(); // Send the Request and Load the File
-});
-}
-
 
 //If the trackbar is moved, "seeks" to that location in audio by changing startOffset
 $("#location[type=range]").change(function(){
