@@ -38,7 +38,7 @@ function record() {
     mediaStream = localMediaStream;
     var mediaStreamSource = context.createMediaStreamSource(localMediaStream);
     rec = new Recorder(mediaStreamSource, {
-      workerPath: 'static/js/recorderWorker.js'
+      workerPath: '../static/js/recorderWorker.js' // 404 error without ../
     });
 
     playCountdown();
