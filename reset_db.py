@@ -8,14 +8,14 @@ Track.drop_collection()
 
 newLayer = Layer(
 			layerName = "Timshel Song",
-			layerPath = "static/music/timshel.m4a",
+			layerPath = "/static/music/timshel.m4a",
 			createdBy = "Noah Zweben",
 			startTime = 0)
 
 
 newLayer2 = Layer(
 			layerName = "Timshel Song",
-			layerPath = "static/music/timshel.m4a",
+			layerPath = "/static/music/timshel.m4a",
 			createdBy = "Noah Zweben",
 			startTime = 0)
 
@@ -29,3 +29,4 @@ newTrack.layers.append(newLayer2)
 
 
 newTrack.save()
+myid = newTrack.id

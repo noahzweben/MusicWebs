@@ -6,9 +6,10 @@
 </head>
 
 <body>
+<h1>All Available Tracks </h1>
  <ul>
  {%for track in tracks %}
- <li>{{track.trackName}}</li>
+ <li><a href="{{ url_for('track.track_page', trackID=track.id) }}"> {{track.trackName}} </a></li>
  {% endfor %}
 
 </ul>

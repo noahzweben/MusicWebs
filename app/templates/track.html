@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<link rel="stylesheet" type="text/css" href="static/myStyle.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myStyle.css') }}">
 <title>Web Audio API</title>
 </head>
 
@@ -27,13 +27,14 @@
 <div id="VolumeBox">Volume Tracks</div>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="static/js/bufferloader.js"></script>
- <script src="static/js/loadAndPlay.js"></script>
- <script src="static/js/recorder.js"></script>
-<script src="static/js/liveRecord.js"></script>
-<script src="static/js/recordCountdown.js"></script>
-<script src="static/js/setViewVolume.js"></script>
+  <script src="{{ url_for('static', filename='js/bufferloader.js') }}"></script>
+ <script src="{{ url_for('static', filename='js/loadAndPlay.js') }}"></script>
+ <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+<script src="{{ url_for('static', filename='js/liveRecord.js') }}"></script>
+<script src="{{ url_for('static', filename='js/recordCountdown.js') }}"></script>
+<script src="{{ url_for('static', filename='js/setViewVolume.js') }}"></script>
 
 
 </body>
 </html>
+
