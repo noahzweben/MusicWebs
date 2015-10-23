@@ -107,7 +107,6 @@ function postLayer() {
   var request = new XMLHttpRequest();
   var id = $('.js-data').data('id');
   var path = "/track/save/"+id;
-  cons
   request.open("POST", path);
   request.send(postData);
 
