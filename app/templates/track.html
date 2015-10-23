@@ -7,7 +7,11 @@
 </head>
 
 <body>
+
  <h2>{{track.trackName}}</h2>
+ 	<div class="js-data"
+ 		data-id="{{ track.id }}"
+ 	></div>
  	<ul class=" and Times">
 	 	{% for layer in track.layers %}
 	 		<li class="path"> {{layer.layerPath}} </li>
@@ -23,6 +27,17 @@
 
 <button onclick="playbackRecorderAudio()">Playback Recording</button>
 <button onclick="layerRecording()">Upload Recording</button>
+<button onclick="postLayer()">Post Recording</button>
+
+
+<!-- <form id = "saveForm" action="{{ url_for('track.save_layer', trackID = track.id) }}" method = "post">
+  Layer Name:<br>
+  <input type="text" placeholder = "i.e. Tenor Harmony" name="layerName" required />
+  <button type="submit">Save Layer</button>
+</form>  -->
+
+
+
 
 <div id="VolumeBox">Volume Tracks</div>
 

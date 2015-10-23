@@ -4,6 +4,7 @@ var navigator = window.navigator;
 // audio
 var mediaStream;
 var rec;
+var wavBlob;
 var layerStartTime;
 var isRecording=false;
 
@@ -55,12 +56,6 @@ function stop() {
   rec.stop();
   togglePlay();
 
-
-
-  // rec.exportWAV(function(e){
-  //   rec.clear();
-  //   Recorder.forceDownload(e, "test.wav");
-  // });
 }
 
 
@@ -76,12 +71,15 @@ var playbackRecorderAudio = function () {
 }
 
 //Takes the recorded input from microphone and adds it to the buffer array so can be played.
-//uses methods from recorder.js (https://github.com/jwagener/recorder.js)
+//uses methods from recorder.js (https://github.com/jwagener/recorder.js).
 function layerRecording() {
   var newBuffer;
   //turns the recording into an wav file and then converts the wav into a audio buffer
   rec.exportWAV(function(wav) {
     var url = window.URL.createObjectURL(wav);
+    wavBlob = wav;
+    console.log(url);
+    console.log('hi');
     var getSound = new XMLHttpRequest(); // Load the Sound with XMLHttpRequest
     getSound.open("GET", url, true);
     getSound.responseType = "arraybuffer"; // Read as Binary Data
@@ -94,4 +92,23 @@ function layerRecording() {
   }
     getSound.send(); // Send the Request and Load the File
 });
+}
+
+
+function postLayer() {
+
+  var postData = new FormData();
+  var layerName = prompt("Enter Layer Name: i.e. Tenor Harmony");
+
+  postData.append("layerName", layerName);
+  postData.append("startTime", layerStartTime); 
+  postData.append("layerFile", wavBlob);
+
+  var request = new XMLHttpRequest();
+  var id = $('.js-data').data('id');
+  var path = "/track/save/"+id;
+  cons
+  request.open("POST", path);
+  request.send(postData);
+
 }
