@@ -7,6 +7,7 @@ var startOffset = 0; //value of the trackbar used to control the audio's locatio
 
 var sourcePaths =[];
 var startTimes = [];
+
 function init() {
 
 	function grabListData(className, isNumber){

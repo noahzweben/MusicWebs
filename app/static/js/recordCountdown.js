@@ -1,4 +1,7 @@
 var beepBuffer;
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
+var context = new AudioContext();
+
 
 var loadBeep = function() {	
  // Create the Sound 

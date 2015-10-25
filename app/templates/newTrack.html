@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myStyle.css') }}">
+<title>Web Audio API</title>
+</head>
+
+<body>
+Name of Track </br>
+<textarea id = "nameForm"></textarea>
+
+<button onclick="toggleRecord()">Add Recording for New Track</button>
+<button onclick="playbackRecorderAudio()">Listen To Recording</button>
+<button onclick="newTrack()">Create New Track</buttuon>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="{{ url_for('static', filename='js/bufferloader.js') }}"></script>
+ <script src="{{ url_for('static', filename='js/loadAndPlay.js') }}"></script>
+ <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+<script src="{{ url_for('static', filename='js/newTrack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/recordCountdown.js') }}"></script>
+<script src="{{ url_for('static', filename='js/setViewVolume.js') }}"></script>
+
+
+</body>
+</html>

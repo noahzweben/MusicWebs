@@ -39,15 +39,47 @@ def save_layer(trackID):
 
 	return redirect( url_for('track.track_page', trackID=trackID))
 
+
 @track.route('/delete/<trackID>/<layerID>')
 def del_layer(trackID,layerID):
 	track = Track.objects().get(id = ObjectId(trackID))	
 	track.update(pull__layers__layerID=ObjectId(layerID))
 	track.save()
-	
+
 	if len(track.layers)-1 == 0: #why is -1 necessary?
 		print "Deleting Track"
 		track.delete()
 		return redirect( url_for('home.home_page') )
 	return redirect( url_for('track.track_page', trackID=trackID))
+
+
+@track.route('/new', methods = ["POST","GET"])
+def new_track():
+	if request.method == "POST":
+		
+		trackName = request.form['trackName']
+		startTime = request.form['startTime']
+		layerFile = request.files['layerFile']
+		layerPath = "/static/music/newTest.wav"
+
+		track = Track(
+			trackName = trackName,
+			createdBy = "Noah Zweben",)
+
+		layerName =  trackName + " Original"
+
+		newLayer = Layer(
+				layerName = layerName,
+				layerPath = layerPath,
+				createdBy = "Noah Zweben",
+				startTime = startTime,
+				layerID = ObjectId() )
+
+		layerFile.save('app/'+layerPath)
+		track.layers.append(newLayer)
+		track.save()
+		return redirect( url_for('track.track_page', trackID=track.id))
+
+	return render_template('newTrack.html')
+
 

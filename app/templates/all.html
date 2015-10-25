@@ -11,6 +11,7 @@
  {%for track in tracks %}
  <li><a href="{{ url_for('track.track_page', trackID=track.id) }}"> {{track.trackName}} </a></li>
  {% endfor %}
+ <li><a href = "{{ url_for('track.new_track') }}">New Track</a></li>
 
 </ul>
 </body>
