@@ -14,8 +14,11 @@
  	></div>
  	<ul class=" and Times">
 	 	{% for layer in track.layers %}
-	 		<li class="path"> {{layer.layerPath}} </li>
+	 		<li> {{ layer.layerID }} </li>
+	 		<li class="path"> {{layer.layerPath}}  </li>
 	 		<li class="startTime">{{layer.startTime}} </li>
+	 		<a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
+	 			<button>Delete Layer</button></a>
 	 	{% endfor %}
  	</ul>
 

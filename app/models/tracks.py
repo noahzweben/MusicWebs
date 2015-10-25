@@ -6,6 +6,7 @@ class Layer(db.EmbeddedDocument):
 	layerPath = db.StringField(required = True)
 	createdBy = db.StringField(required = True)
 	startTime = db.DecimalField(required = True)
+	layerID = db.ObjectIdField()
 
 class Track(db.Document):
 	trackName = db.StringField(required=True, max_length=100) 
