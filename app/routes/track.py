@@ -24,7 +24,7 @@ def save_layer(trackID):
 		startTime = request.form['startTime']
 		layerFile = request.files['layerFile']
 
-		layerPath = "/static/music/wedidit.wav"
+		layerPath =  "/static/music/"+datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f")+"_"+str(track.id)+".wav"
 
 		newLayer = Layer(
 				layerName = layerName,
@@ -60,7 +60,7 @@ def new_track():
 		trackName = request.form['trackName']
 		startTime = request.form['startTime']
 		layerFile = request.files['layerFile']
-		layerPath = "/static/music/newTest.wav"
+		layerPath =  "/static/music/"+datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f")+"__"+str(track.id)+".wav"
 
 		track = Track(
 			trackName = trackName,
@@ -75,11 +75,23 @@ def new_track():
 				startTime = startTime,
 				layerID = ObjectId() )
 
-		layerFile.save('app/'+layerPath)
+		layerFile.save('app'+layerPath)
 		track.layers.append(newLayer)
 		track.save()
 		return redirect( url_for('track.track_page', trackID=track.id))
 
 	return render_template('newTrack.html')
+
+
+# @track.route('/fork/<layerID>', methods=["POST"])
+# def fork(layerID):
+# 	if request.method=="POST":
+# 		track = Track(
+# 			trackName = request.form['trackName'],
+# 			createdBy = "Noah Zweben",)
+
+# 		layer = Layer.objects.get(layerId = ObjectId(layerID))
+
+
 
 

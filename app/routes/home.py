@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template
 from app.models.tracks import Track,Layer
 from bson.objectid import ObjectId
-from reset_db import myid
 
 
 home = Blueprint('home', __name__)

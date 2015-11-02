@@ -33,4 +33,3 @@ newTrack.layers.append(newLayer2)
 
 
 newTrack.save()
-myid = newTrack.id
