@@ -23,8 +23,7 @@ def save_layer(trackID):
 		layerName = request.form['layerName']
 		startTime = request.form['startTime']
 		layerFile = request.files['layerFile']
-
-		layerPath =  "/static/music/"+datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f")+"_"+str(track.id)+".wav"
+		layerPath = filePath(track,startTime)
 
 		newLayer = Layer(
 				layerName = layerName,
@@ -60,7 +59,8 @@ def new_track():
 		trackName = request.form['trackName']
 		startTime = request.form['startTime']
 		layerFile = request.files['layerFile']
-		layerPath =  "/static/music/"+datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f")+"__"+str(track.id)+".wav"
+		layerPath = filePath(track,startTime)
+
 
 		track = Track(
 			trackName = trackName,
@@ -92,6 +92,9 @@ def new_track():
 
 # 		layer = Layer.objects.get(layerId = ObjectId(layerID))
 
+def filePath(track,startTime):
+	print startTime
+	return "/static/music/"+datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f")+"__"+str(track.id)+"__"+startTime.replace(".","-")+".wav"
 
 
 
