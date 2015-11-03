@@ -1,23 +1,23 @@
 function createVolumeSlider(source) {
-	var gainNode = context.createGain();
-	gainNode.gain.value = 0.5;
-	source.connect(gainNode);
-	gainNode.connect(context.destination);
+    var gainNode = context.createGain();
+    gainNode.gain.value = 0.5;
+    source.connect(gainNode);
+    gainNode.connect(context.destination);
 
-	var input = document.createElement("input");
-	input.type = "range";
-	input.min="0";
-	input.max="4";
-	input.step="0.05";
-	input.className = "volumeSlider"; // set the CSS class
-	
-	$(input).change(function(){
-		gainNode.gain.value = $(this).val();
-		console.log(gainNode.gain.value);
-	});
+    var input = document.createElement("input");
+    input.type = "range";
+    input.min="0";
+    input.max="4";
+    input.step="0.05";
+    input.className = "volumeSlider"; // set the CSS class
+    
+    $(input).change(function(){
+        gainNode.gain.value = $(this).val();
+        console.log(gainNode.gain.value);
+    });
 
-	
-	$("#VolumeBox").append(input);
+    
+    $("#VolumeBox").append(input);
 
 }
 
@@ -25,10 +25,10 @@ function createVolumeSlider(source) {
 
 
 function setUpVolumeNodes(source) {
-	var c=document.createElement("canvas");
-	$(c).css("display","inline-block");
-	var ctx=c.getContext("2d");
- 	var gradient = ctx.createLinearGradient(0,0,0,300);
+    var c=document.createElement("canvas");
+    $(c).css("display","inline-block");
+    var ctx=c.getContext("2d");
+    var gradient = ctx.createLinearGradient(0,0,0,300);
     gradient.addColorStop(1,'#000000');
     gradient.addColorStop(0.75,'#ff0000');
     gradient.addColorStop(0.25,'#ffff00');
@@ -99,6 +99,6 @@ function setUpVolumeNodes(source) {
 
 
 function clearVolumeSlider() {
-	$("#VolumeBox").empty();
+    $("#VolumeBox").empty();
 
 }

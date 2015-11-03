@@ -59,7 +59,7 @@ def new_track():
 		trackName = request.form['trackName']
 		startTime = request.form['startTime']
 		layerFile = request.files['layerFile']
-		layerPath = filePath(track,startTime)
+		
 
 
 		track = Track(
@@ -67,6 +67,7 @@ def new_track():
 			createdBy = "Noah Zweben",)
 
 		layerName =  trackName + " Original"
+		layerPath = filePath(track,startTime)
 
 		newLayer = Layer(
 				layerName = layerName,

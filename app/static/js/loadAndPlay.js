@@ -53,6 +53,9 @@ function finishedLoading(bufferList) {
 	//sets the trackbar maximum value to length of the solo track (song at index 0)
 	var songLength = buffers[0][0].duration;
 	$("#location").attr("max", songLength); 
+	//displays volume slider
+	togglePlay();
+	togglePlay();
 }
 
 //A play/pause button calls this 
