@@ -12,16 +12,15 @@ login = Blueprint('login', __name__, url_prefix='/login')
 def index():
     return render_template('login.html')
 
-
 @login.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('login.index'))
 
 @login.route('/authorize/<provider>')
 def oauth_authorize(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('login'))
+        return redirect(url_for('login.index'))
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
 
@@ -29,21 +28,23 @@ def oauth_authorize(provider):
 @login.route('/callback/<provider>')
 def oauth_callback(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('login'))
+        return redirect(url_for('login.index'))
     oauth = OAuthSignIn.get_provider(provider)
     social_id, username, email = oauth.callback()
     if social_id is None:
         flash('Authentication failed.')
-        return redirect(url_for('login'))
+        return redirect(url_for('login.index'))
     print social_id
     print username
     print email
-    user = User.objects().get(social_id = db.StringField(social_id))
-    if not user:
+    try:
+        user = User.objects().get(social_id=social_id)
+    except User.DoesNotExist:
         user = User(social_id=social_id, username=username, email=email)
         user.save()
+
     login_user(user, True)
-    return redirect(url_for('login'))
+    return redirect(url_for('login.index'))
 
 
 if __name__ == '__main__':
