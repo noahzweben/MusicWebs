@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template,request, redirect, url_for, jsonify
+from flask.ext.login import login_required, current_user
 from app.models.tracks import Track,Layer
 from bson.objectid import ObjectId
 import os, datetime
@@ -28,7 +29,7 @@ def save_layer(trackID):
 		newLayer = Layer(
 				layerName = layerName,
 				layerPath = layerPath,
-				createdBy = "Noah Zweben",
+				createdBy = current_user.username,
 				startTime = startTime,
 				layerID = ObjectId() )
 
@@ -53,6 +54,7 @@ def del_layer(trackID,layerID):
 
 
 @track.route('/new', methods = ["POST","GET"])
+@login_required
 def new_track():
 	if request.method == "POST":
 		
@@ -64,7 +66,8 @@ def new_track():
 
 		track = Track(
 			trackName = trackName,
-			createdBy = "Noah Zweben",)
+			createdBy = current_user.username, 
+			)
 
 		layerName =  trackName + " Original"
 		layerPath = filePath(track,startTime)
@@ -72,7 +75,7 @@ def new_track():
 		newLayer = Layer(
 				layerName = layerName,
 				layerPath = layerPath,
-				createdBy = "Noah Zweben",
+				createdBy = current_user.username,
 				startTime = startTime,
 				layerID = ObjectId() )
 

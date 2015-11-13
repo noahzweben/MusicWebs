@@ -11,3 +11,4 @@ _mailinglist
 .tox
 secrets.py
 *.pyc
+*.wav
