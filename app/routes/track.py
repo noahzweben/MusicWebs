@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template,request, redirect, url_for
+from flask import Blueprint, render_template,request, redirect, url_for, jsonify
 from app.models.tracks import Track,Layer
 from bson.objectid import ObjectId
 import os, datetime
@@ -79,8 +79,8 @@ def new_track():
 		layerFile.save('app'+layerPath)
 		track.layers.append(newLayer)
 		track.save()
-		return redirect( url_for('track.track_page', trackID=track.id))
-
+		#return redirect( url_for('track.track_page', trackID=track.id))
+		return jsonify(url = url_for('track.track_page', trackID=track.id))
 	return render_template('newTrack.html')
 
 

@@ -88,7 +88,15 @@ function postLayer() {
     var path = "/track/new";
     request.open("POST", path);
     request.send(postData);
+
+    request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+        var obj = JSON.parse(request.responseText);
+        var url = obj.url;
+        window.location = url;
+    }
   }
+}
   else {
     $("#nameForm").css("border","1px solid red");
 
