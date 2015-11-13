@@ -37,7 +37,7 @@ def save_layer(trackID):
 		track.layers.append(newLayer)
 		track.save()
 
-	return redirect( url_for('track.track_page', trackID=trackID))
+	return jsonify(url = url_for('track.track_page', trackID=track.id))
 
 
 @track.route('/delete/<trackID>/<layerID>')
