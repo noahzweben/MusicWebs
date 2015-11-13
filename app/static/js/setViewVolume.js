@@ -1,18 +1,24 @@
-function createVolumeSlider(source) {
+function createVolumeSlider(source,i) {
     var gainNode = context.createGain();
-    gainNode.gain.value = 0.5;
+    
+    gainNode.gain.value = buffers[i].volume || 1;
+    console.log(i,buffers[i].volume);
+    console.log(i,gainNode.gain.value);
+    
     source.connect(gainNode);
     gainNode.connect(context.destination);
 
     var input = document.createElement("input");
     input.type = "range";
     input.min="0";
-    input.max="4";
-    input.step="0.05";
+    input.max="400";
+    input.value = String(gainNode.gain.value*100);
+    input.step="1";
     input.className = "volumeSlider"; // set the CSS class
     
     $(input).change(function(){
-        gainNode.gain.value = $(this).val();
+        gainNode.gain.value = $(this).val()/100.0;
+        buffers[i].volume = gainNode.gain.value;
         console.log(gainNode.gain.value);
     });
 
@@ -24,7 +30,7 @@ function createVolumeSlider(source) {
 
 
 
-function setUpVolumeNodes(source) {
+function setUpVolumeNodes(source,i) {
     var c=document.createElement("canvas");
     $(c).css("display","inline-block");
     var ctx=c.getContext("2d");
@@ -52,7 +58,7 @@ function setUpVolumeNodes(source) {
  
         // and connect to destination, if you want audio
 
-       createVolumeSlider(source);
+       createVolumeSlider(source,i);
        $("#VolumeBox").append(c);
 
 
