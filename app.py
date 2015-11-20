@@ -5,7 +5,7 @@ app.config['DEBUG'] = True # Enable this only while testing!
 
 @app.route('/')
 def hello():
-	return render_template('index2.html')
+	return render_template('index.html')
 
 
 # If the user executed this python file (typed `python app.py` in their

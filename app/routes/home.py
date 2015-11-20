@@ -12,7 +12,7 @@ def home_page():
 
     # 11/6: Commenting out for now because things are breaking
     #tracks = Track.objects()
-    return render_template('all.html')#, tracks = tracks)
+    return render_template('index.html')#, tracks = tracks)
 
 # @home.route('/<trackID>')
 # def track_page(trackID):
