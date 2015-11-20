@@ -110,4 +110,12 @@ function postLayer() {
   request.open("POST", path);
   request.send(postData);
 
+  request.onreadystatechange = function() {
+  if (request.readyState == 4) {
+    var obj = JSON.parse(request.responseText);
+    var url = obj.url;
+    window.location = url;
+    }
+  }
+
 }

@@ -16,10 +16,15 @@
 	 	{% for layer in track.layers %}
 	 		<li> {{ layer.layerName }} </li>
 	 		<li> {{ layer.layerID }} </li>
+	 		<li> {{ layer.createdBy }} </li>
 	 		<li class="path"> {{layer.layerPath}}  </li>
 	 		<li class="startTime">{{layer.startTime}} </li>
+
+	 		{% if current_user.username == layer.createdBy %}
 	 		<a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
 	 			<button>Delete Layer</button></a>
+	 		{% endif %}
+	 		
 	 	{% endfor %}
  	</ul>
 

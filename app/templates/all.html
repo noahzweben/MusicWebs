@@ -6,6 +6,12 @@
 </head>
 
 <body>
+
+{% if current_user.is_authenticated %}
+  Hi {{ current_user.username }}!
+{% endif %}
+
+<a href= "{{ url_for('login.index') }}">login</a>
 <h1>All Available Tracks </h1>
  <ul>
  {%for track in tracks %}

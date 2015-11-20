@@ -83,7 +83,7 @@ function playAll(bufferList) {
 			currentSource.buffer = bufferList[i][0];
 			currentSource.layerStartTime = bufferList[i][1]; //what time the layer should start
 			//Creates volume controls for each layer, this function defined in static/setViewVolume.js 
-			setUpVolumeNodes(currentSource);
+			setUpVolumeNodes(currentSource,i);
 			sourceList[i]=currentSource;
 		}
 		

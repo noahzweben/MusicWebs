@@ -7,4 +7,5 @@ class User(db.Document, UserMixin):
     email = db.StringField(required=True)
 
     def get_id(self):
-    	return str(self.id)
+       	return str(self.id)
+
