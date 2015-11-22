@@ -20,7 +20,7 @@
 	 		<li class="path"> {{layer.layerPath}}  </li>
 	 		<li class="startTime">{{layer.startTime}} </li>
 
-	 		{% if current_user.username == layer.createdBy %}
+	 		{% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
 	 		<a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
 	 			<button>Delete Layer</button></a>
 	 		{% endif %}
