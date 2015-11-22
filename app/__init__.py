@@ -1,5 +1,6 @@
 import os
 import secrets
+
 from flask import Flask, url_for
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.login import LoginManager

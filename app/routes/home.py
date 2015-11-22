@@ -9,8 +9,10 @@ home = Blueprint('home', __name__)
 @home.route('/')
 def home_page():
     """The home page."""
-    tracks = Track.objects()
-    return render_template('all.html', tracks = tracks)
+
+    # 11/6: Commenting out for now because things are breaking
+    #tracks = Track.objects()
+    return render_template('index.html')#, tracks = tracks)
 
 # @home.route('/<trackID>')
 # def track_page(trackID):

@@ -8,6 +8,10 @@ from app import db
 
 track = Blueprint('track', __name__, url_prefix='/track')
 
+@track.route('/')
+def all_tracks():
+	tracks = Track.objects()
+	return render_template("all.html", tracks = tracks)
 
 @track.route('/<trackID>')  
 def track_page(trackID):
