@@ -3,38 +3,60 @@
 <head>
 <meta charset=utf-8 />
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myStyle.css') }}">
-<title>Web Audio API</title>
-</head>
+<title>MusicWebs</title>
 
+<style>
+#wave {
+	width: 40em;
+	display: inline-block ;
+	margin-left: 2em;
+}
+
+</style>
+
+
+
+</head>
 <body>
 
  <h2>{{track.trackName}}</h2>
  	<div class="js-data"
- 		data-id="{{ track.id }}"
- 	></div>
- 	<ul class=" and Times">
+ 		data-id="{{ track.id }}">
+ 	</div>
+ 	
+ 	
+<div id = "layerInfo"> 
+	<table class="info">
+		<tr>
+			<td></td>
+			<td rowspan="3"><div id = "wave"></div></td>
+		</tr>
 	 	{% for layer in track.layers %}
-	 		<li> {{ layer.layerName }} </li>
-	 		<li> {{ layer.layerID }} </li>
-	 		<li> {{ layer.createdBy }} </li>
-	 		<li class="path"> {{layer.layerPath}}  </li>
-	 		<li class="startTime">{{layer.startTime}} </li>
+	 	<tr>
+	 		<td>
+	 			<ul>
+			 		<li> {{ layer.layerName }} </li>
+			 		<li style = "display: none"> {{ layer.layerID }} </li>
+			 		<li> {{ layer.createdBy }} </li>
+			 		<li style = "display: none" class="path"> {{layer.layerPath}}  </li>
+			 		<li  style = "display: none" class="startTime">{{layer.startTime}} </li>
 
-	 		{% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
-	 		<a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
-	 			<button>Delete Layer</button></a>
-	 		{% endif %}
-	 		
+			 		{% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
+			 		<a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
+			 			<button>Delete Layer</button></a>
+			 		{% endif %}
+		 		</ul>
+		 	</td>
+	 	</tr>
 	 	{% endfor %}
- 	</ul>
-
+	</table>
+</div>
   
+
   <button id="playButton" onclick ="togglePlay()">Start/Stop</button>
-<input id="location" type="range"  min="0" max="100" value="0"/>
 
 <button onclick="toggleRecord()">Start/Stop Recording</button>
 
-<button onclick="playbackRecorderAudio()">Playback Recording</button>
 <button onclick="layerRecording()">Upload Recording</button>
 <button onclick="postLayer()">Post Recording</button>
 
@@ -51,12 +73,11 @@
 <div id="VolumeBox">Volume Tracks</div>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="{{ url_for('static', filename='js/bufferloader.js') }}"></script>
- <script src="{{ url_for('static', filename='js/loadAndPlay.js') }}"></script>
+<script src="{{ url_for('static', filename='js/wavesurferMyEdits.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
  <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
 <script src="{{ url_for('static', filename='js/liveRecord.js') }}"></script>
 <script src="{{ url_for('static', filename='js/recordCountdown.js') }}"></script>
-<script src="{{ url_for('static', filename='js/setViewVolume.js') }}"></script>
 
 
 </body>

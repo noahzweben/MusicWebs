@@ -48,33 +48,22 @@ function record() {
 function stop() {
   mediaStream.stop();
   rec.stop();
+  playBack();
 }
 
 
-var playbackRecorderAudio = function () {
-    rec.getBuffer(function (buffers) {
-    var source = context.createBufferSource();
-    source.buffer = context.createBuffer(1, buffers[0].length, 44100);
-    source.buffer.getChannelData(0).set(buffers[0]);
-    source.buffer.getChannelData(0).set(buffers[1]);
-    source.connect(context.destination);
-    source.start(0);
-  });
-}
 
-
-function newTrack() {
+function playBack() {
   //turns the recording into an wav file and then converts the wav into a audio buffer
   rec.exportWAV(function(wav) {
     var url = window.URL.createObjectURL(wav);
     wavBlob = wav;
-    postLayer()
-
+    loadWave(url,0);
 });
 }
 
 
-function postLayer() {
+function newTrack() {
   var trackName = $("#nameForm").val();
   if (trackName.length !=0){
     var postData = new FormData();
