@@ -33,6 +33,8 @@ def load_user(user_id):
 from app.routes.home import home
 from app.routes.track import track
 from app.routes.login import login
+from app.routes.user import user
 app.register_blueprint(home)
 app.register_blueprint(track)
 app.register_blueprint(login)
+app.register_blueprint(user)

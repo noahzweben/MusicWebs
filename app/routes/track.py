@@ -8,10 +8,24 @@ from app import db
 
 track = Blueprint('track', __name__, url_prefix='/track')
 
-@track.route('/')
+@track.route('/', methods = ["GET","POST"])
 def all_tracks():
 	tracks = Track.objects()
-	return render_template("all.html", tracks = tracks)
+	return render_template("all.html", tracks = tracks, search = "")
+
+
+#FIND BETTER WAY TO QUERY
+@track.route('/search', methods = ["GET","POST"])
+def search():
+	if request.method == "POST":
+		search = request.form["search"]
+		tracks = []
+		options = Track.objects()
+		for track in options:
+			if track.trackName == search or track.originalArtist== search or track.createdBy == search:
+				tracks = tracks+[track]
+	return render_template("all.html", tracks = tracks, search = search)
+
 
 @track.route('/<trackID>')  
 def track_page(trackID):
@@ -21,6 +35,7 @@ def track_page(trackID):
 
 
 @track.route('/save/<trackID>', methods = ["GET","POST"])
+@login_required
 def save_layer(trackID):
 	if request.method == "POST":
 		track = Track.objects().get(id = ObjectId(trackID))
@@ -45,6 +60,7 @@ def save_layer(trackID):
 
 
 @track.route('/delete/<trackID>/<layerID>')
+@login_required
 def del_layer(trackID,layerID):
 	track = Track.objects().get(id = ObjectId(trackID))	
 	track.update(pull__layers__layerID=ObjectId(layerID))
@@ -53,7 +69,7 @@ def del_layer(trackID,layerID):
 	if len(track.layers)-1 == 0: #why is -1 necessary?
 		print "Deleting Track"
 		track.delete()
-		return redirect( url_for('home.home_page') )
+		return redirect( url_for('track.all_tracks') )
 	return redirect( url_for('track.track_page', trackID=trackID))
 
 
@@ -65,12 +81,14 @@ def new_track():
 		trackName = request.form['trackName']
 		startTime = request.form['startTime']
 		layerFile = request.files['layerFile']
+
 		
 
 
 		track = Track(
 			trackName = trackName,
 			createdBy = current_user.username, 
+			originalArtist = request.form['originalArtist'],
 			)
 
 		layerName =  trackName + " Original"

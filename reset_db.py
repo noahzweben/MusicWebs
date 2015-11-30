@@ -25,6 +25,7 @@ newLayer2 = Layer(
 
 newTrack = Track(
 			trackName = "Timshel",
+			originalArtist = "Mumford and Sons",
 			createdBy = "Noah Zweben",
 			)
 

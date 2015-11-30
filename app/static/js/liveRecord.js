@@ -55,6 +55,8 @@ function stop() {
   mediaStream.stop();
   rec.stop();
   togglePlay();
+  layerRecording();
+  $("#recordButton").prop("disabled",true);
 
 }
 
@@ -68,6 +70,9 @@ function layerRecording() {
     wavBlob = wav;
     console.log(url);
     loadWave(url,layerStartTime);
+    waves[waves.length-1].on("ready",alignWaves);
+    waves[waves.length-1].on("ready",setSeek);
+    tempDiv();
 
   });
 }
@@ -96,5 +101,34 @@ function postLayer() {
     window.location = url;
     }
   }
-
 }
+
+///////
+function tempDiv() {
+  var div = document.createElement("div");
+  div.innerText = "Temporary, delete or save before recording new layer"
+  var container = document.getElementById("container");
+  container.appendChild(div);
+  var button = document.createElement("button");
+  button.innerText = "Delete Recording";
+  
+  $(button).click(function(){
+    waves[waves.length-1].destroy();
+    $("#recordButton").prop("disabled",false);
+    $(div).remove();
+    waves.pop();
+    waveContainers.pop();waveContainers.pop();
+  });
+
+  var button2 = document.createElement("button");
+  button2.innerText = "Save Recording";
+  $(button2).click(function(){
+    postLayer();
+    $("#recordButton").prop("disabled",false);
+  });
+
+  div.appendChild(button);
+  div.appendChild(button2);
+}
+////
+

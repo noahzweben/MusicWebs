@@ -49,6 +49,8 @@ function stop() {
   mediaStream.stop();
   rec.stop();
   playBack();
+  tempDiv();
+  $("#recordButton").prop("disabled",true);
 }
 
 
@@ -58,18 +60,24 @@ function playBack() {
   rec.exportWAV(function(wav) {
     var url = window.URL.createObjectURL(wav);
     wavBlob = wav;
+    $("#wave").css("display","inline-block");
     loadWave(url,0);
+    waves[waves.length-1].on("ready",alignWaves);
+    waves[waves.length-1].on("ready",setSeek);
 });
 }
 
 
 function newTrack() {
   var trackName = $("#nameForm").val();
-  if (trackName.length !=0){
+  var originalArtist = $("#artistForm").val();
+
+  if (trackName.length !=0 && originalArtist.length !=0){
     var postData = new FormData();
     console.log(trackName);
 
     postData.append("trackName", trackName);
+    postData.append("originalArtist", originalArtist);
     postData.append("startTime", 0.0); 
     postData.append("layerFile", wavBlob);
 
@@ -88,6 +96,39 @@ function newTrack() {
 }
   else {
     $("#nameForm").css("border","1px solid red");
+    $("#artistForm").css("border","1px solid red");
 
   }
+}
+
+
+
+
+function tempDiv() {
+  var div = document.createElement("div");
+  div.innerText = "Temporary, delete or save before recording new layer"
+  var container = document.getElementById("container");
+  container.appendChild(div);
+  var button = document.createElement("button");
+  button.innerText = "Delete Recording";
+  
+  $(button).click(function(){
+    waves[waves.length-1].destroy();
+    $("#recordButton").prop("disabled",false);
+    $(div).remove();
+    $("#wave").css("display","none");
+
+    waves.pop();
+    waveContainers.pop();waveContainers.pop();
+  });
+
+  var button2 = document.createElement("button");
+  button2.innerText = "Save Recording";
+  $(button2).click(function(){
+    newTrack();
+    $("#recordButton").prop("disabled",false);
+  });
+
+  div.appendChild(button);
+  div.appendChild(button2);
 }

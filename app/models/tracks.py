@@ -10,6 +10,7 @@ class Layer(db.EmbeddedDocument):
 
 class Track(db.Document):
     trackName = db.StringField(required=True, max_length=100) 
+    originalArtist = db.StringField(required = True, max_length = 100)
     createdBy = db.StringField(required = True)
     layers = db.ListField(db.EmbeddedDocumentField('Layer'))
 

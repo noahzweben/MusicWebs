@@ -6,73 +6,116 @@
 <title>MusicWebs</title>
 
 <style>
-#wave {
-	width: 40em;
-	display: inline-block ;
-	margin-left: 2em;
+body {
+	background-color: black;
+	color: gray;
 }
 
+#layerInfo {
+	position: relative;
+}
+#wave {
+	display: inline-block ;
+	margin-left: 150px;
+	position: relative;
+	width: 200px;
+	background-color: #152430;
+	border:1px solid white;
+
+}
+
+.waveContainer{
+	border: 1px solid white;
+}
+
+#container {
+	display: inline-block;
+	width: 150px;
+	margin: 0px;
+	padding: 0px;
+	/*border: 2px solid yellow;*/
+	position: absolute;
+	background-color: gray;
+	color: white;
+}
+
+#container div {
+	height: 99px;
+	margin: 0px;
+	border: 1px solid white;
+	position: relative;
+	display: inline-block;
+	width: 150px;
+}
+
+#playPanel {
+	border-radius: 45px;
+	display: block;
+	margin-left: 45%;
+	height: 25px;
+	width: 200px;
+	padding-top: 10px;
+	padding-left: 5px;
+	position: fixed;
+	border: 1px solid white;
+	/*background-color: #ce1886;*/
+	background-color: gray;
+
+}
 </style>
 
 
 
 </head>
-<body>
+<body >
 
  <h2>{{track.trackName}}</h2>
  	<div class="js-data"
  		data-id="{{ track.id }}">
  	</div>
- 	
- 	
-<div id = "layerInfo"> 
-	<table class="info">
-		<tr>
-			<td></td>
-			<td rowspan="3"><div id = "wave"></div></td>
-		</tr>
-	 	{% for layer in track.layers %}
-	 	<tr>
-	 		<td>
-	 			<ul>
-			 		<li> {{ layer.layerName }} </li>
-			 		<li style = "display: none"> {{ layer.layerID }} </li>
-			 		<li> {{ layer.createdBy }} </li>
-			 		<li style = "display: none" class="path"> {{layer.layerPath}}  </li>
-			 		<li  style = "display: none" class="startTime">{{layer.startTime}} </li>
+ <h4>Track owner: <a href="{{url_for('user.findUser',username=track.createdBy)}}">{{track.createdBy}}</a></h4>
+ 
+{% if not current_user.is_authenticated %}
+<p> You must <a href="{{ url_for('login.index') }}">log in </a> in order to record layers to this track </p>
+{% endif %}
 
-			 		{% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
-			 		<a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
-			 			<button>Delete Layer</button></a>
-			 		{% endif %}
-		 		</ul>
-		 	</td>
-	 	</tr>
-	 	{% endfor %}
-	</table>
+<div id = "layerInfo"> 
+	<div id = "container">
+	 		{% for layer in track.layers %}
+		 
+				 		
+				 			<div>{{ layer.layerName}}<br> By: <a href="{{url_for('user.findUser',username=layer.createdBy)}}"> 
+				 				{{ layer.createdBy }} </a> 
+						 		{% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
+						 			<a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
+						 			<button>Delete Layer</button></a>
+						 		{% endif %}
+				 			</div>
+
+				 		<li style = "display: none"> {{ layer.layerID }} </li>
+				 		<li style = "display: none" class="path"> {{layer.layerPath}}  </li>
+				 		<li  style = "display: none" class="startTime">{{layer.startTime}} </li>
+
+				 		
+	 		{% endfor %}
+	 </div>
+	 <div id="wave"></div>
+
 </div>
   
-
-  <button id="playButton" onclick ="togglePlay()">Start/Stop</button>
-
-<button onclick="toggleRecord()">Start/Stop Recording</button>
-
-<button onclick="layerRecording()">Upload Recording</button>
-<button onclick="postLayer()">Post Recording</button>
-
-
-<!-- <form id = "saveForm" action="{{ url_for('track.save_layer', trackID = track.id) }}" method = "post">
-  Layer Name:<br>
-  <input type="text" placeholder = "i.e. Tenor Harmony" name="layerName" required />
-  <button type="submit">Save Layer</button>
-</form>  -->
+<div id="playPanel">
+	<button id="playButton" onclick ="togglePlay()">Start/Stop</button>
+	{% if current_user.is_authenticated %}
+	<button id="recordButton" onclick="toggleRecord()">Start/Stop Recording</button>
+	{% endif %}
+</div>
 
 
 
 
-<div id="VolumeBox">Volume Tracks</div>
-
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--  
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script> 
 <script src="{{ url_for('static', filename='js/wavesurferMyEdits.js') }}"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
  <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>

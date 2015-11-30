@@ -6,7 +6,8 @@ var maxDuration = 0;
 var myTime =0;
 var waveDiv = document.getElementById('wave');
 var isPlaying = false;
-
+var MIN_PX = 7;
+var aligned = false;
 
 var startTimes =[];
 var sourcePaths=[];
@@ -31,6 +32,13 @@ function loadWaves() {
         loadWave(sourcePaths[i],startTimes[i]); 
     }
 
+    if (waves.length>0) {        
+        waves[waves.length-1].on("ready",alignWaves);
+        waves[waves.length-1].on("ready",setSeek);
+        waves[waves.length-1].on("ready",addMute);
+
+    }
+
     loadBeep();
 }
 
@@ -46,9 +54,11 @@ function loadWave(path, startTime) {
         container     : waveContainer,
         waveColor     : '#ff856f',
         progressColor : '#ce1886',
-        cursorColor   : 'white',
+        cursorColor   : '#ce1886',
         cursorWidth   : 1.5,
         height        : 100, 
+        fillParent    : false,
+        minPxPerSec   : MIN_PX,
         //interact      : false,
     };
 
@@ -69,6 +79,8 @@ function makeContainer(startTime) {
     var div = document.createElement("div");
     div.class = "waveContainer";
     div.style.width = '100%';
+    div.style.paddingLeft = "7px";
+    div.style.opacity = 1;
     waveDiv.appendChild(div);
     waveContainers.push(div);
     return div;
@@ -76,6 +88,7 @@ function makeContainer(startTime) {
 
 
 function playAll(playTime) {
+    if (!aligned) alignWaves();
     restartAll();
     isPlaying = true;
     for (var i=0; i<waves.length; i++){
@@ -84,6 +97,8 @@ function playAll(playTime) {
         if (playTime >= waves[i].startTime) {
             var beginAt = playTime-waves[i].startTime;
             if (beginAt < waves[i].getDuration()) waves[i].play(beginAt);
+            else waves[i].play(waves[i].getDuration()-.01); // jumps to end
+
         }
 
         else {
@@ -92,10 +107,19 @@ function playAll(playTime) {
                 this.play();
             }.bind(waves[i]),
             delay));
+            waves[i].seekTo(0);
         }
     }
 }
 
+function seekAll(toTime) {
+    for (var i=0;i<waves.length;i++) {
+        var goTo = toTime-waves[i].startTime;
+        goTo = Math.max(goTo,0);
+        goTo = Math.min(goTo/waves[i].getDuration(),1);
+        waves[i].seekTo(goTo);
+    }
+}
 
 function pauseAll() {
     var pauseTime = 0;
@@ -105,7 +129,6 @@ function pauseAll() {
         if (waves[i].isPlaying()){
             waves[i].pause();
             pauseTime = Math.max(pauseTime,waves[i].getCurrentTime()+waves[i].startTime);
-            console.log(pauseTime);
     }
 }
     myTime = pauseTime;  
@@ -133,21 +156,20 @@ function removeDelayed(){
 }
 
 function alignWaves(){
+    aligned = true;
     setMaxDuration();
     for (var i =0; i<waveContainers.length; i=i+2) {
-        //console.log(i);
-        // console.log(waves[i/2].startTime);
-        // console.log(maxDuration);
-        // console.log("here we g0 " + waves[i/2].startTime/maxDuration )
-        waveContainers[i].style.width = waves[i/2].getDuration()/maxDuration*100+"%"
-        waveContainers[i].style.marginLeft =  waves[i/2].startTime/maxDuration*100 +"%";
+        waveContainers[i].style.width = waves[i/2].getDuration()/maxDuration*100+"%";
+        waves[i/2].height='100px';
+        waveContainers[i].style.marginLeft = waves[i/2].startTime*MIN_PX+"px";
     }
+    $('#wave').css('width',maxDuration*(1+MIN_PX)+"px");
 }
+
+
 
 function setMaxDuration() {
     for (var i =0;i<waves.length;i++) {
-        // console.log(maxDuration);
-        // console.log(waves[i].getDuration());
         maxDuration = Math.max(maxDuration,waves[i].getDuration());
     }
 }
@@ -155,22 +177,15 @@ function setMaxDuration() {
 function setSeek() {
     for (var i =0;i<waves.length;i++) {
         waves[i].on('allSeek',function (percentage) {
-            console.log("mememe "+this.startTime);
             myTime = percentage*(this.getDuration())+this.startTime;
-            console.log("play at: "+myTime);
             var wasPlaying = isPlaying;
-            console.log(wasPlaying);
-            playAll(myTime);
+            if (wasPlaying)playAll(myTime);
+            else seekAll(myTime);
         }.bind(waves[i]));
     }
 }
 
 
-$(document).keypress(function(e) {
-    if(e.which == 32) {
-      togglePlay(); 
-    }
-});
 
 
 
@@ -194,3 +209,34 @@ function togglePlay(){
 }
 
 
+$(document).keypress(function(e) {
+    if(e.which == 32) {
+      togglePlay(); 
+    }
+});
+
+
+function addMute() {
+    var i=0;
+    $("#container div").each(function(){
+        var button = document.createElement('button');
+        button.innerText = "Mute";
+        $(button).click(function(i){
+            this.toggleMute();
+            makeClearer(i,button);
+        }.bind(waves[i],i));
+        i++;
+        $(this).append(button);
+    });
+}
+
+
+function makeClearer(i,button){
+    if (waveContainers[i*2].style.opacity == 1) {
+        waveContainers[i*2].style.opacity = .2;
+        button.style.opacity = .5;
+    }
+    else {waveContainers[i*2].style.opacity = 1;
+            button.style.opacity = 1;
+    }
+}
