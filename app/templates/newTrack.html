@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myStyle.css') }}">
+<title>Web Audio API</title>
+
+
+<style>
+body {
+	background-color: black;
+	color: gray;
+}
+
+#layerInfo {
+	position: relative;
+	margin-top: 50px;
+}
+#wave {
+	display: none ;
+	margin-left: 150px;
+	position: relative;
+	width: 200px;
+	background-color: #152430;
+	border:1px solid white;
+
+}
+
+.waveContainer{
+	border: 1px solid white;
+}
+
+#container {
+	display: inline-block;
+	width: 150px;
+	margin: 0px;
+	padding: 0px;
+	/*border: 2px solid yellow;*/
+	position: absolute;
+	background-color: gray;
+	color: white;
+}
+
+#container div {
+	height: 99px;
+	margin: 0px;
+	border: 1px solid white;
+	position: relative;
+	display: inline-block;
+	width: 150px;
+}
+
+#playPanel {
+	border-radius: 45px;
+	display: block;
+	margin-left: 45%;
+	height: 25px;
+	width: 200px;
+	padding-top: 10px;
+	padding-left: 5px;
+	position: fixed;
+	border: 1px solid white;
+	/*background-color: #ce1886;*/
+	background-color: gray;
+
+}
+
+
+
+
+</style>
+</head>
+
+<body>
+Name of Track </br>
+<input type="text" id = "nameForm" placeholder ="e.g Single Ladies"/>
+<br>
+Original Artist 
+<br>
+<input type="text" id = "artistForm" placeholder ="e.g Beyonce or Original"/>
+<br>
+<br>
+
+<button id = "recordButton" onclick="toggleRecord()">Add Recording for New Track</button>
+<div id = "layerInfo"> 
+	<div id = "container"></div>
+	 <div id="wave"></div>
+</div>
+
+
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script> 
+
+<script src="{{ url_for('static', filename='js/wavesurferMyEdits.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+ <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+<script src="{{ url_for('static', filename='js/newTrack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/recordCountdown.js') }}"></script>
+
+
+</body>
+</html>
