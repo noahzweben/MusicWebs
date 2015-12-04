@@ -25,16 +25,13 @@
           <div class="nav-wrapper">
             <div class="nav-container">
               <div><a href="{{url_for('home.home_page')}}" class="brand-logo">MusicWebs</a></div>
-                <div class="login-btn-container">
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="{{ url_for('track.all_tracks')}}">Discover Tracks</a></li>
+                <li><div class="login-btn-container">
                   <a href="{{ url_for('login.oauth_authorize', provider='facebook') }}" class="login-btn right waves-effect waves-light btn">Login</a>
-                </div>
-
-                <div class="login-btn-container">
-                  <a href="{{ url_for('track.all_tracks')}}" class="login-btn right waves-effect waves-light btn">Tracks</a>
-                </div>
-                
+                </div></li>
+              </ul>
             </div>
-            
           </div>
         </nav>
       </div>
@@ -47,7 +44,7 @@
           </div>
           <div class="small_header_container">
             <div class="row center">
-              <h3 class="header col s12 small_header left-align">MusicWebs is a way to record tracks, add harmonies and instrumentation to other users' songs, and share your results with the world.</h3>
+              <h3 class="header col s12 small_header left-align">MusicWebs is a way to record your tracks, add harmonies and instrumentation to other songs, and share your results with the world.</h3>
             </div>
           </div>
         </div>

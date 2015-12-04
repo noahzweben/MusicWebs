@@ -22,12 +22,20 @@ html {
 }
 
 .login-btn-container{
+	padding-left: 10px;
 	padding-top: 15px;
 }
 
 .login-btn{
-	background-color: #D1DBBD;
+	background-color: #009688;
 }
+
+
+.new-track-btn-container{
+	padding-right: 20px;
+	padding-top: 15px;
+}
+
 
 .signup-btn{
 	background-color: #FF856F;
@@ -55,3 +63,8 @@ html {
 	font-weight: 300;
 	color: white;
 }
+
+.trackBox {
+ 	background-color: #FF856F
+ }
+ 

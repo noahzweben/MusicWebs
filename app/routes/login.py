@@ -10,12 +10,12 @@ login = Blueprint('login', __name__, url_prefix='/login')
 
 @login.route('/')
 def index():
-    return render_template('login.html')
+    return redirect(url_for('home.home_page'))
 
 @login.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('login.index'))
+    return redirect(url_for('home.home_page'))
 
 @login.route('/authorize/<provider>')
 def oauth_authorize(provider):
