@@ -1,78 +1,62 @@
-<!DOCTYPE html>
 <html>
-<head>
-<meta charset=utf-8 />
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myStyle.css') }}">
-<title>MusicWebs</title>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <title>MusicWebs</title>
 
-<style>
-body {
-	background-color: black;
-	color: gray;
-}
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
 
-#layerInfo {
-	position: relative;
-}
-#wave {
-	display: inline-block ;
-	margin-left: 150px;
-	position: relative;
-	width: 200px;
-	background-color: #152430;
-	border:1px solid white;
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="/static/js/init.js"></script>
 
-}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
 
-.waveContainer{
-	border: 1px solid white;
-}
-
-#container {
-	display: inline-block;
-	width: 150px;
-	margin: 0px;
-	padding: 0px;
-	/*border: 2px solid yellow;*/
-	position: absolute;
-	background-color: gray;
-	color: white;
-}
-
-#container div {
-	height: 99px;
-	margin: 0px;
-	border: 1px solid white;
-	position: relative;
-	display: inline-block;
-	width: 150px;
-}
-
-#playPanel {
-	border-radius: 45px;
-	display: block;
-	margin-left: 45%;
-	height: 25px;
-	width: 200px;
-	padding-top: 10px;
-	padding-left: 5px;
-	position: fixed;
-	border: 1px solid white;
-	/*background-color: #ce1886;*/
-	background-color: gray;
-
-}
-</style>
-
-
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 <body >
 
+{% for message in get_flashed_messages() %}
+      <p><b>Error</b>: {{ message }}</p>
+    {% endfor %}
+      <div class="navbar-fixed">
+        <nav class="blue-grey darken-2">
+          <div class="nav-wrapper">
+            <div class="nav-container">
+              <div><a href="{{url_for('home.home_page')}}" class="brand-logo">MusicWebs</a></div>
+
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><div class="new-track-btn-container">
+                  <a href="{{ url_for('track.new_track') }}" class="login-btn right waves-effect waves-light btn">New Track</a>
+                </div></li>
+                <li><a href="{{ url_for('track.all_tracks')}}">Discover Tracks</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href=""><i class="material-icons">perm_identity</i></a></li>
+            <li>{{current_user.username }}</li>
+            <li><a href="{{ url_for('login.logout') }}">logout </li></a>
+                    {% endif %}
+
+                {% if not current_user.is_authenticated %}
+                <li><div class="login-btn-container">
+                  <a href="{{ url_for('login.oauth_authorize', provider='facebook') }}" class="login-btn right waves-effect waves-light btn">Login</a>
+                </div></li>
+                {% endif %}
+              
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+
+
+
  <h2>{{track.trackName}}</h2>
- 	<div class="js-data"
- 		data-id="{{ track.id }}">
- 	</div>
+    <div class="js-data"
+        data-id="{{ track.id }}">
+    </div>
  <h4>Track owner: <a href="{{url_for('user.findUser',username=track.createdBy)}}">{{track.createdBy}}</a></h4>
  
 {% if not current_user.is_authenticated %}
@@ -80,34 +64,34 @@ body {
 {% endif %}
 
 <div id = "layerInfo"> 
-	<div id = "container">
-	 		{% for layer in track.layers %}
-		 
-				 		
-				 			<div>{{ layer.layerName}}<br> By: <a href="{{url_for('user.findUser',username=layer.createdBy)}}"> 
-				 				{{ layer.createdBy }} </a> 
-						 		{% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
-						 			<a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
-						 			<button>Delete Layer</button></a>
-						 		{% endif %}
-				 			</div>
+    <div id = "container">
+            {% for layer in track.layers %}
+         
+                        
+                            <div>{{ layer.layerName}}<br> By: <a href="{{url_for('user.findUser',username=layer.createdBy)}}"> 
+                                {{ layer.createdBy }} </a> 
+                                {% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
+                                    <a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
+                                    <button>Delete Layer</button></a>
+                                {% endif %}
+                            </div>
 
-				 		<li style = "display: none"> {{ layer.layerID }} </li>
-				 		<li style = "display: none" class="path"> {{layer.layerPath}}  </li>
-				 		<li  style = "display: none" class="startTime">{{layer.startTime}} </li>
+                        <li style = "display: none"> {{ layer.layerID }} </li>
+                        <li style = "display: none" class="path"> {{layer.layerPath}}  </li>
+                        <li  style = "display: none" class="startTime">{{layer.startTime}} </li>
 
-				 		
-	 		{% endfor %}
-	 </div>
-	 <div id="wave"></div>
+                        
+            {% endfor %}
+     </div>
+     <div id="wave"></div>
 
 </div>
   
 <div id="playPanel">
-	<button id="playButton" onclick ="togglePlay()">Start/Stop</button>
-	{% if current_user.is_authenticated %}
-	<button id="recordButton" onclick="toggleRecord()">Start/Stop Recording</button>
-	{% endif %}
+    <button id="playButton" onclick ="togglePlay()">Start/Stop</button>
+    {% if current_user.is_authenticated %}
+    <button id="recordButton" onclick="toggleRecord()">Start/Stop Recording</button>
+    {% endif %}
 </div>
 
 
@@ -125,4 +109,3 @@ body {
 
 </body>
 </html>
-
