@@ -10,7 +10,7 @@ Track.drop_collection()
 
 newLayer = Layer(
 			layerName = "Timshel Song",
-			layerPath = "/static/music/timshel.m4a",
+			layerPath = "/static/music/stock/timshel.m4a",
 			createdBy = "Noah Zweben",
 			layerID = ObjectId(),
 			startTime = 0)
@@ -18,7 +18,7 @@ newLayer = Layer(
 
 newLayer2 = Layer(
 			layerName = "Timshel Song",
-			layerPath = "/static/music/timshel.m4a",
+			layerPath = "/static/music/stock/timshel.m4a",
 			createdBy = "Noah Zweben",
 			layerID = ObjectId(),
 			startTime = 0)

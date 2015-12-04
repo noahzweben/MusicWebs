@@ -3,7 +3,7 @@ var beepBuffer;
 var loadBeep = function() {	
  // Create the Sound 
 	var getSound = new XMLHttpRequest(); // Load the Sound with XMLHttpRequest
-	getSound.open("GET", "/static/music/chime.wav", true); // Path to Audio File
+	getSound.open("GET", "/static/music/stock/chime.wav", true); // Path to Audio File
 	getSound.responseType = "arraybuffer"; // Read as Binary Data
 	getSound.onload = function() {
 		context.decodeAudioData(getSound.response, function(buffer){

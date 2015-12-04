@@ -52,7 +52,7 @@ function record() {
 }
 
 function stop() {
-  mediaStream.stop();
+  mediaStream.active=false;
   rec.stop();
   togglePlay();
   layerRecording();

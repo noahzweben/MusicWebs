@@ -4,6 +4,7 @@ from app.models.tracks import Track,Layer
 from bson.objectid import ObjectId
 import os, datetime
 from app import db
+from mongoengine import Q
 
 
 track = Blueprint('track', __name__, url_prefix='/track')
@@ -19,11 +20,7 @@ def all_tracks():
 def search():
 	if request.method == "POST":
 		search = request.form["search"]
-		tracks = []
-		options = Track.objects()
-		for track in options:
-			if track.trackName == search or track.originalArtist== search or track.createdBy == search:
-				tracks = tracks+[track]
+		tracks = Track.objects(Q(trackName = search) | Q(originalArtist = search) | Q(createdBy = search))
 	return render_template("all.html", tracks = tracks, search = search)
 
 
@@ -43,19 +40,21 @@ def save_layer(trackID):
 		layerName = request.form['layerName']
 		startTime = request.form['startTime']
 		layerFile = request.files['layerFile']
-		layerPath = filePath(track,startTime)
+
+		layerId = ObjectId()
+		layerPath = filePath(track,layerId,layerName,startTime)
+		layerFile.save('app'+layerPath)
 
 		newLayer = Layer(
 				layerName = layerName,
 				layerPath = layerPath,
 				createdBy = current_user.username,
 				startTime = startTime,
-				layerID = ObjectId() )
+				layerID = layerId )
 
-		layerFile.save('app/'+layerPath)
 		track.layers.append(newLayer)
 		track.save()
-
+	
 	return jsonify(url = url_for('track.track_page', trackID=track.id))
 
 
@@ -90,37 +89,57 @@ def new_track():
 			createdBy = current_user.username, 
 			originalArtist = request.form['originalArtist'],
 			)
+		track.save()
+
 
 		layerName =  trackName + " Original"
-		layerPath = filePath(track,startTime)
+
+		layerId = ObjectId()
+		layerPath = filePath(track,layerId,layerName,startTime)
+		layerFile.save('app'+layerPath)
 
 		newLayer = Layer(
 				layerName = layerName,
 				layerPath = layerPath,
 				createdBy = current_user.username,
 				startTime = startTime,
-				layerID = ObjectId() )
+				layerID = layerId )
 
-		layerFile.save('app'+layerPath)
 		track.layers.append(newLayer)
 		track.save()
-		#return redirect( url_for('track.track_page', trackID=track.id))
+
+
+
+
 		return jsonify(url = url_for('track.track_page', trackID=track.id))
 	return render_template('newTrack.html')
 
 
-# @track.route('/fork/<layerID>', methods=["POST"])
-# def fork(layerID):
-# 	if request.method=="POST":
-# 		track = Track(
-# 			trackName = request.form['trackName'],
-# 			createdBy = "Noah Zweben",)
+@track.route('/cleanup')
+@login_required
+def cleanup():
+	filePath ='app/static/music/'
+	if current_user.username != "itchynose27":
+		return redirect( url_for('home.home_page') )
 
-# 		layer = Layer.objects.get(layerId = ObjectId(layerID))
+	else:
+		fileNames = os.listdir(filePath)
+		fileNames = [x for x in fileNames if x.endswith(".wav")]
+		
+		for filename in fileNames:
+			layerId = filename.split("__")[0]
+ 			print layerId
+			existingTrack = Track.objects(layers__layerID = ObjectId(layerId)).first()
 
-def filePath(track,startTime):
-	print startTime
-	return "/static/music/"+datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S_%f")+"__"+str(track.id)+"__"+startTime.replace(".","-")+".wav"
+			if existingTrack == None:
+				os.remove(filePath+filename)
 
 
 
+		return str(fileNames)
+
+
+
+def filePath(track,layerId, layerName, startTime):
+	pathName = "/static/music/"+str(layerId)+"__"+str(track.id)+"__"+layerName+"__"+startTime.replace(".","-")+".wav"
+	return pathName.replace(" ","")

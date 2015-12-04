@@ -8,9 +8,5 @@ user = Blueprint('user', __name__, url_prefix='/user')
 
 @user.route('/<username>')
 def findUser(username): #better way to query?
-	tracks = []
-	options = Track.objects()
-	for track in options:
-		if track.createdBy == username:
-			tracks = tracks+[track]
+	tracks = Track.objects(createdBy = username)
 	return render_template("all.html", tracks = tracks, search = username)
