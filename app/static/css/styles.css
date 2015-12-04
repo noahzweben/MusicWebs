@@ -67,4 +67,58 @@ html {
 .trackBox {
  	background-color: #FF856F
  }
+
+ 
+ #layerInfo {
+    position: relative;
+}
+#wave {
+    display: inline-block ;
+    margin-left: 150px;
+    position: relative;
+    width: 200px;
+    background-color: #152430;
+    border:1px solid #FF856F;
+
+}
+
+.waveContainer{
+    border: 1px solid #FF856F;
+}
+
+#container {
+    display: inline-block;
+    width: 150px;
+    margin: 0px;
+    padding: 0px;
+    /*border: 2px solid yellow;*/
+    position: absolute;
+    background-color: gray;
+    color: white;
+}
+
+#container div {
+    height: 99px;
+    margin: 0px;
+    border: 1px solid #FF856F;
+    position: relative;
+    display: inline-block;
+    width: 150px;
+}
+
+#playPanel {
+    border-radius: 45px;
+    display: block;
+    margin-left: 45%;
+    height: 25px;
+    width: 200px;
+    padding-top: 10px;
+    padding-left: 5px;
+    position: fixed;
+    border: 1px solid white;
+    /*background-color: #ce1886;*/
+    background-color: gray;
+
+}
+ 
  
