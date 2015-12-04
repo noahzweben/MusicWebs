@@ -33,7 +33,7 @@
                 </div></li>
                  <li><a href="{{ url_for('track.all_tracks')}}">Discover Tracks</a></li>
                 {% if current_user.is_authenticated %}
-  					<li><a href=""><i class="material-icons">perm_identity</i></a></li>
+  					<li><a href="{{url_for('user.findUser',username=current_user.username)}}"><i class="material-icons">perm_identity</i></a></li>
             <li>{{current_user.username }}</li>
             <li><a href="{{ url_for('login.logout') }}">logout </li></a>
 				{% endif %}

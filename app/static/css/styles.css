@@ -68,13 +68,15 @@ html {
  	background-color: #FF856F
  }
 
- 
+
+
+
  #layerInfo {
     position: relative;
 }
 #wave {
     display: inline-block ;
-    margin-left: 150px;
+    margin-left: 200px;
     position: relative;
     width: 200px;
     background-color: #152430;
@@ -88,7 +90,7 @@ html {
 
 #container {
     display: inline-block;
-    width: 150px;
+    width: 200px;
     margin: 0px;
     padding: 0px;
     /*border: 2px solid yellow;*/
@@ -103,7 +105,7 @@ html {
     border: 1px solid #FF856F;
     position: relative;
     display: inline-block;
-    width: 150px;
+    width: 200px;
 }
 
 #playPanel {
