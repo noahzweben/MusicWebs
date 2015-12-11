@@ -52,16 +52,22 @@
 
 
 
+<div class = "row">
+  <div class = "col s1"></div>
+  <div class = "col s10">
+     <h2>{{track.trackName}}</h2>
+        <div class="js-data"
+            data-id="{{ track.id }}">
+        </div>
+     <h4>Track owner: <a href="{{url_for('user.findUser',username=track.createdBy)}}">{{track.createdBy}}</a></h4>
+     
+    {% if not current_user.is_authenticated %}
+    <p> You must <a href="{{ url_for('login.index') }}">log in </a> in order to record layers to this track </p>
+    {% endif %}
+  </div>
+  <div class = "col s1"></div>
 
- <h2>{{track.trackName}}</h2>
-    <div class="js-data"
-        data-id="{{ track.id }}">
-    </div>
- <h4>Track owner: <a href="{{url_for('user.findUser',username=track.createdBy)}}">{{track.createdBy}}</a></h4>
- 
-{% if not current_user.is_authenticated %}
-<p> You must <a href="{{ url_for('login.index') }}">log in </a> in order to record layers to this track </p>
-{% endif %}
+</div>
 
 <div id = "layerInfo"> 
     <div id = "container">
@@ -70,6 +76,7 @@
                         
                             <div>{{ layer.layerName}}<br> By: <a href="{{url_for('user.findUser',username=layer.createdBy)}}"> 
                                 {{ layer.createdBy }} </a> 
+                                <br>
                                 {% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
                                     <a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
                                     <button>Delete Layer</button></a>
@@ -88,9 +95,9 @@
 </div>
   
 <div id="playPanel">
-    <button id="playButton" onclick ="togglePlay()">Start/Stop</button>
+    <button id="playButton" class= "waves-effect waves-light btn" onclick ="togglePlay()">Play/Pause</button>
     {% if current_user.is_authenticated %}
-    <button id="recordButton" onclick="toggleRecord()">Start/Stop Recording</button>
+    <button id="recordButton" class= "waves-effect waves-light btn" onclick="toggleRecord()">Start/Stop Recording</button>
     {% endif %}
 </div>
 

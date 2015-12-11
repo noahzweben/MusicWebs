@@ -7,8 +7,6 @@ var myTime =0;
 var waveDiv = document.getElementById('wave');
 var isPlaying = false;
 var MIN_PX = 7;
-var aligned = false;
-
 var startTimes =[];
 var sourcePaths=[];
 
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', loadWaves);
 
 
 function loadWaves() {
-
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
 
@@ -88,7 +85,6 @@ function makeContainer(startTime) {
 
 
 function playAll(playTime) {
-    if (!aligned) alignWaves();
     restartAll();
     isPlaying = true;
     for (var i=0; i<waves.length; i++){
@@ -156,11 +152,9 @@ function removeDelayed(){
 }
 
 function alignWaves(){
-    aligned = true;
     setMaxDuration();
     for (var i =0; i<waveContainers.length; i=i+2) {
         waveContainers[i].style.width = waves[i/2].getDuration()/maxDuration*100+"%";
-        waves[i/2].height='100px';
         waveContainers[i].style.marginLeft = waves[i/2].startTime*MIN_PX+"px";
     }
     $('#wave').css('width',maxDuration*(1+MIN_PX)+"px");
@@ -221,6 +215,7 @@ function addMute() {
     $("#container div").each(function(){
         var button = document.createElement('button');
         button.innerText = "Mute";
+        button.class = "waves-effect waves-light btn";
         $(button).click(function(i){
             this.toggleMute();
             makeClearer(i,button);
