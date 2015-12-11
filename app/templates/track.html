@@ -34,7 +34,7 @@
                 <li><a href="{{ url_for('track.all_tracks')}}">Discover Tracks</a></li>
                 {% if current_user.is_authenticated %}
                     <li><a href=""><i class="material-icons">perm_identity</i></a></li>
-            <li>{{current_user.username }}</li>
+            <li>Hi, {{current_user.username }}!</li>
             <li><a href="{{ url_for('login.logout') }}">logout </li></a>
                     {% endif %}
 
@@ -52,7 +52,7 @@
 
 
 
-<div class = "row">
+<div class = "container row">
   <div class = "col s1"></div>
   <div class = "col s10">
      <h2>{{track.trackName}}</h2>
@@ -74,6 +74,7 @@
 
 </div>
 
+<div class="container">
 <div id = "layerInfo"> 
     <div id = "container">
             {% for layer in track.layers %}
@@ -98,7 +99,7 @@
      <div id="wave"></div>
 
 </div>
-  
+</div>
 <div id="playPanel">
     <button id="playButton" class= "waves-effect waves-light btn" onclick ="togglePlay()">Play/Pause</button>
     {% if current_user.is_authenticated %}
