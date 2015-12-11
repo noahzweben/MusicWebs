@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <title>MusicWebs</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="/static/js/init.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body >
+
+{% for message in get_flashed_messages() %}
+      <p><b>Error</b>: {{ message }}</p>
+    {% endfor %}
+      <div class="navbar-fixed">
+        <nav class="blue-grey darken-2">
+          <div class="nav-wrapper">
+            <div class="nav-container">
+              <div><a href="{{url_for('home.home_page')}}" class="brand-logo">MusicWebs</a></div>
+
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><div class="new-track-btn-container">
+                  <a href="{{ url_for('track.new_track') }}" class="login-btn right waves-effect waves-light btn">New Track</a>
+                </div></li>
+                <li><a href="{{ url_for('track.all_tracks')}}">Discover Tracks</a></li>
+
+                <li><a href="{{ url_for('user.findUser',username = current_user.username)}}"><ul>
+                {% if current_user.is_authenticated %}
+                    <li><i class="material-icons">perm_identity</i></li>
+                Hi, {{current_user.username }}!
+                </ul></a></li>
+
+            <li><a href="{{ url_for('login.logout') }}">Logout </a></li>
+                    {% endif %}
+
+
+
+                {% if not current_user.is_authenticated %}
+                <li><div class="login-btn-container">
+                  <a href="{{ url_for('login.oauth_authorize', provider='facebook') }}" class="login-btn right waves-effect waves-light btn">Login</a>
+                </div></li>
+                {% endif %}
+              
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+{% block content %}{% endblock %}
+  </body>
+</html>
