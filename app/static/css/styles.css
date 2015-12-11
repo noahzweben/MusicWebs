@@ -73,7 +73,6 @@ html {
 
  #layerInfo {
     position: relative;
-    margin-left: 2.5em;
 }
 #wave {
     display: inline-block ;
@@ -89,7 +88,7 @@ html {
     border: 1px solid #FF856F;
 }
 
-#container {
+#layerContainer {
     display: inline-block;
     width: 200px;
     /*margin-left: 2.5em;*/
@@ -100,7 +99,7 @@ html {
     color: white;
 }
 
-#container div {
+#layerContainer div {
     height: 99px;
     margin: 0px;
     padding-left: 1em;

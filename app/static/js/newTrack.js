@@ -110,7 +110,7 @@ function newTrack() {
 function tempDiv() {
   var div = document.createElement("div");
   div.innerText = "Temporary, delete or save before recording new layer"
-  var container = document.getElementById("container");
+  var container = document.getElementById("layerContainer");
   container.appendChild(div);
   var button = document.createElement("button");
   button.innerText = "Delete Recording";
