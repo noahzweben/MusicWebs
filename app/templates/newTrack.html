@@ -1,87 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset=utf-8 />
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='myStyle.css') }}">
-<title>Web Audio API</title>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <title>MusicWebs</title>
 
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400' rel='stylesheet' type='text/css'>
 
-<style>
-body {
-	background-color: black;
-	color: gray;
-}
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+    <script src="/static/js/init.js"></script>
 
-#layerInfo {
-	position: relative;
-	margin-top: 50px;
-}
-#wave {
-	display: none ;
-	margin-left: 150px;
-	position: relative;
-	width: 200px;
-	background-color: #152430;
-	border:1px solid white;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
 
-}
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css" media="screen,projection"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-.waveContainer{
-	border: 1px solid white;
-}
-
-#container {
-	display: inline-block;
-	width: 150px;
-	margin: 0px;
-	padding: 0px;
-	/*border: 2px solid yellow;*/
-	position: absolute;
-	background-color: gray;
-	color: white;
-}
-
-#container div {
-	height: 99px;
-	margin: 0px;
-	border: 1px solid white;
-	position: relative;
-	display: inline-block;
-	width: 150px;
-}
-
-#playPanel {
-	border-radius: 45px;
-	display: block;
-	margin-left: 45%;
-	height: 25px;
-	width: 200px;
-	padding-top: 10px;
-	padding-left: 5px;
-	position: fixed;
-	border: 1px solid white;
-	/*background-color: #ce1886;*/
-	background-color: gray;
-
-}
-
-
-
-
-</style>
 </head>
 
 <body>
-Name of Track </br>
-<input type="text" id = "nameForm" placeholder ="e.g Single Ladies"/>
-<br>
-Original Artist 
-<br>
-<input type="text" id = "artistForm" placeholder ="e.g Beyonce or Original"/>
-<br>
-<br>
 
-<button id = "recordButton" onclick="toggleRecord()">Add Recording for New Track</button>
+
+{% for message in get_flashed_messages() %}
+      <p><b>Error</b>: {{ message }}</p>
+    {% endfor %}
+      <div class="navbar-fixed">
+        <nav class="blue-grey darken-2">
+          <div class="nav-wrapper">
+            <div class="nav-container">
+              <div><a href="{{url_for('home.home_page')}}" class="brand-logo">MusicWebs</a></div>
+
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><div class="new-track-btn-container">
+                  <a href="{{ url_for('track.new_track') }}" class="login-btn right waves-effect waves-light btn">New Track</a>
+                </div></li>
+                <li><a href="{{ url_for('track.all_tracks')}}">Discover Tracks</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href=""><i class="material-icons">perm_identity</i></a></li>
+            <li>{{current_user.username }}</li>
+            <li><a href="{{ url_for('login.logout') }}">logout </li></a>
+                    {% endif %}
+
+                {% if not current_user.is_authenticated %}
+                <li><div class="login-btn-container">
+                  <a href="{{ url_for('login.oauth_authorize', provider='facebook') }}" class="login-btn right waves-effect waves-light btn">Login</a>
+                </div></li>
+                {% endif %}
+              
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+<div class = "container row">
+
+
+ <div class="input-field">
+ <h5>Name of Track</h5>
+<input type="text" id = "nameForm" placeholder =" e.g Single Ladies"/>
+</div>
+
+ <div class="input-field">
+<h5>Original Artist</h5>
+<input type="text" id = "artistForm" placeholder =" e.g Beyonce or Original"/>
+</div>
+
+<button class = "waves-effect deep-orange lighten-2 waves-light btn" id = "recordButton" onclick="toggleRecord()">Add Recording for New Track</button>
+
 <div id = "layerInfo"> 
 	<div id = "container"></div>
 	 <div id="wave"></div>
@@ -89,6 +75,7 @@ Original Artist
 
 
 
+</div> 
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
 <script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script> 
 

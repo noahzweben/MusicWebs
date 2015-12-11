@@ -14,7 +14,7 @@ var sourcePaths=[];
 
 
 document.addEventListener('DOMContentLoaded', loadWaves);
-
+window.setTimeout(alignWaves,500);
 
 
 function loadWaves() {
@@ -85,6 +85,7 @@ function makeContainer(startTime) {
 
 
 function playAll(playTime) {
+    alignWaves();
     restartAll();
     isPlaying = true;
     for (var i=0; i<waves.length; i++){
