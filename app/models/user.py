@@ -8,4 +8,3 @@ class User(db.Document, UserMixin):
 
     def get_id(self):
        	return str(self.id)
-
