@@ -31,11 +31,8 @@
               	<li><div class="new-track-btn-container">
                   <a href="{{ url_for('track.new_track') }}" class="login-btn right waves-effect waves-light btn">New Track</a>
                 </div></li>
-                 <li><a href="{{ url_for('track.all_tracks')}}">Discover Tracks</a></li>
                 {% if current_user.is_authenticated %}
-  					<li><a href="{{url_for('user.findUser',username=current_user.username)}}"><i class="material-icons">perm_identity</i></a></li>
-            <li>{{current_user.username }}</li>
-            <li><a href="{{ url_for('login.logout') }}">logout </li></a>
+  					<li><a href="#"><i class="material-icons">perm_identity</i></a></li>
 				{% endif %}
                 {% if not current_user.is_authenticated %}
                 <li><div class="login-btn-container">
@@ -50,6 +47,7 @@
       
   <nav>
     <div class="nav-wrapper white">
+
 
       <form id = "SearchForm" action="{{ url_for('track.search')}}" method = "post">
         <div class="input-field">
