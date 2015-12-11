@@ -71,7 +71,9 @@ function playBack() {
 function newTrack() {
   var trackName = $("#nameForm").val();
   var originalArtist = $("#artistForm").val();
-
+  var isHidden = $("#hiddenBox").is(':checked');
+  isHidden = isHidden ? 1 : 0;
+  
   if (trackName.length !=0 && originalArtist.length !=0){
     var postData = new FormData();
     console.log(trackName);
@@ -80,6 +82,7 @@ function newTrack() {
     postData.append("originalArtist", originalArtist);
     postData.append("startTime", 0.0); 
     postData.append("layerFile", wavBlob);
+    postData.append("isHidden", isHidden);
 
     var request = new XMLHttpRequest();
     var path = "/track/new";

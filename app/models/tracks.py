@@ -13,4 +13,4 @@ class Track(db.Document):
     originalArtist = db.StringField(required = True, max_length = 100)
     createdBy = db.StringField(required = True)
     layers = db.ListField(db.EmbeddedDocumentField('Layer'))
-
+    hidden = db.BooleanField(default = False)

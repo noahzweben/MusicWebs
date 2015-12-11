@@ -60,6 +60,11 @@
             data-id="{{ track.id }}">
         </div>
      <h4>Track owner: <a href="{{url_for('user.findUser',username=track.createdBy)}}">{{track.createdBy}}</a></h4>
+    
+    {% if current_user.username == track.createdBy %}
+      <a href="{{ url_for('track.del_track', trackID = track.id)  }}">Delete Track</a>
+    
+    {%endif%}
      
     {% if not current_user.is_authenticated %}
     <p> You must <a href="{{ url_for('login.index') }}">log in </a> in order to record layers to this track </p>

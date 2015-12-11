@@ -58,15 +58,23 @@
 
  <div class="input-field">
  <h5>Name of Track</h5>
-<input type="text" id = "nameForm" placeholder =" e.g Single Ladies"/>
+<input class = "validate" type="text" id = "nameForm" placeholder =" e.g Single Ladies"/>
 </div>
 
  <div class="input-field">
 <h5>Original Artist</h5>
-<input type="text" id = "artistForm" placeholder =" e.g Beyonce or Original"/>
+<input class = "validate"  type="text" id = "artistForm" placeholder =" e.g Beyonce or Original"/>
 </div>
 
+<div class = "input-field">
+<h5> Keep Hidden </h5> 
+hidden tracks will only be accesible by the creator and people with the link, use this feature for private collaborations
+<br><input type="checkbox" id = "hiddenBox"/><label for="hiddenBox">Hidden</label>
+</div>
+
+<br>
 <button class = "waves-effect deep-orange lighten-2 waves-light btn" id = "recordButton" onclick="toggleRecord()">Add Recording for New Track</button>
+
 
 <div id = "layerInfo"> 
 	<div id = "container"></div>

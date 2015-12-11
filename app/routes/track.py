@@ -72,7 +72,14 @@ def del_layer(trackID,layerID):
 	return redirect( url_for('track.track_page', trackID=trackID))
 
 
-# @track.route('delete/<trackID>')
+@track.route('deletetrack/<trackID>')
+@login_required
+def del_track(trackID):
+	track = Track.objects().get(id = ObjectId(trackID))	
+	if current_user.username == track.createdBy:
+		track.delete()
+	return redirect( url_for('track.all_tracks') )
+
 
 
 @track.route('/new', methods = ["POST","GET"])
@@ -82,15 +89,15 @@ def new_track():
 		
 		trackName = request.form['trackName']
 		startTime = request.form['startTime']
+		isHidden = request.form['isHidden']
 		layerFile = request.files['layerFile']
-
-		
-
+	
 
 		track = Track(
 			trackName = trackName,
 			createdBy = current_user.username, 
 			originalArtist = request.form['originalArtist'],
+			hidden = bool(int(isHidden)),
 			)
 		track.save()
 

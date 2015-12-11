@@ -68,6 +68,7 @@
 
                 <h3>All Available Tracks {%if search != "" %} ({{search}}) {% endif %} </h3>
                  {%for track in tracks %}
+                  {%if track.hidden == False or current_user.username == track.createdBy %}
                       <br>
                          <a href="{{ url_for('track.track_page', trackID=track.id) }}">
                         <div class = "# white-text card-panel trackBox"> 
@@ -75,10 +76,14 @@
                         <ul>
                           <li> Original Artist: {{track.originalArtist}}
                           <li> Created by: {{track.createdBy}}
+                          {%if track.hidden%}
+                          <li> Hidden Track
+                          {%endif%}
                         </ul> 
                       </div>
                       </a>
-
+                  {%endif%}
+ 
                  {% endfor %}
       
 
