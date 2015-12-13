@@ -14,7 +14,7 @@ var sourcePaths=[];
 
 
 document.addEventListener('DOMContentLoaded', loadWaves);
-window.setTimeout(alignWaves,500);
+window.setTimeout(alignWaves,1000);
 
 
 function loadWaves() {
@@ -213,10 +213,10 @@ $(document).keypress(function(e) {
 
 function addMute() {
     var i=0;
-    $("#container div").each(function(){
+    $("#layerContainer div").each(function(){
         var button = document.createElement('button');
         button.innerText = "Mute";
-        button.class = "waves-effect waves-light btn";
+        // button.class = "waves-effect waves-light btn";
         $(button).click(function(i){
             this.toggleMute();
             makeClearer(i,button);

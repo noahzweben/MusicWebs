@@ -113,7 +113,7 @@ function tempDiv() {
   var container = document.getElementById("layerContainer");
   container.appendChild(div);
   var button = document.createElement("button");
-  button.innerText = "Delete Recording";
+  button.innerText = "Delete Recording"; 
   
   $(button).click(function(){
     waves[waves.length-1].destroy();

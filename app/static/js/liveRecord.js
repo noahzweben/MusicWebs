@@ -80,9 +80,8 @@ function layerRecording() {
 
 
 function postLayer() {
-
   var postData = new FormData();
-  var layerName = prompt("Enter Layer Name: i.e. Tenor Harmony");
+  var layerName = $("#layerName").val();
 
   postData.append("layerName", layerName);
   postData.append("startTime", layerStartTime); 
@@ -123,7 +122,7 @@ function tempDiv() {
   var button2 = document.createElement("button");
   button2.innerText = "Save Recording";
   $(button2).click(function(){
-    postLayer();
+    $('#modal1').openModal();
     $("#recordButton").prop("disabled",false);
   });
 
@@ -131,4 +130,11 @@ function tempDiv() {
   div.appendChild(button2);
 }
 ////
+
+
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+          
 

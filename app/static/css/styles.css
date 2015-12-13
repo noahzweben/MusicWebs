@@ -5,7 +5,12 @@ html {
 .parallax-container {
     height: 100%;
 }
-        
+
+button {
+    color: black;
+}
+    
+    
 .brand-logo{
 	font-weight: 300;
 }

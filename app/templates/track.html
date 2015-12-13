@@ -2,10 +2,10 @@
 {% block content %} 
 
 
-<div class = "container row">
-  <div class = "col s1"></div>
-  <div class = "col s10">
+<div class = "row">
+  <div class = "col s11 offset-s1">
      <h2>{{track.trackName}}</h2>
+     <h5> opb: {{track.originalArtist}}</h5>
         <div class="js-data"
             data-id="{{ track.id }}">
         </div>
@@ -20,35 +20,34 @@
     <p> You must <a href="{{ url_for('login.index') }}">log in </a> in order to record layers to this track </p>
     {% endif %}
   </div>
-  <div class = "col s1"></div>
 
 </div>
 
-<div class="container">
-<div id = "layerInfo"> 
-    <div id = "layerContainer">
-            {% for layer in track.layers %}
-         
-                        
-                            <div>{{ layer.layerName}}<br> By: <a href="{{url_for('user.findUser',username=layer.createdBy)}}"> 
-                                {{ layer.createdBy }} </a> 
-                                <br>
-                                {% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
-                                    <a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
-                                    <button>Delete Layer</button></a>
-                                {% endif %}
-                            </div>
+<div class="row">
+      <div id = "layerInfo" class="col s11 offset-s1"> 
+          <div id = "layerContainer">
+                  {% for layer in track.layers %}
+               
+                              
+                                  <div class = "grey darken-1">{{ layer.layerName}}<br> By: <a href="{{url_for('user.findUser',username=layer.createdBy)}}"> 
+                                      {{ layer.createdBy }} </a> 
+                                      <br>
+                                      {% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
+                                          <a href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)  }}"> 
+                                          <button>Delete Layer</button></a>
+                                      {% endif %}
+                                  </div>
 
-                        <li style = "display: none"> {{ layer.layerID }} </li>
-                        <li style = "display: none" class="path"> {{layer.layerPath}}  </li>
-                        <li  style = "display: none" class="startTime">{{layer.startTime}} </li>
+                              <li style = "display: none"> {{ layer.layerID }} </li>
+                              <li style = "display: none" class="path"> {{layer.layerPath}}  </li>
+                              <li  style = "display: none" class="startTime">{{layer.startTime}} </li>
 
-                        
-            {% endfor %}
-     </div>
-     <div id="wave"></div>
+                              
+                  {% endfor %}
+           </div>
+           <div id="wave"></div>
 
-</div>
+      </div>
 </div>
 <div id="playPanel">
     <button id="playButton" class= "waves-effect waves-light btn" onclick ="togglePlay()">Play/Pause</button>
@@ -58,12 +57,26 @@
 </div>
 
 
+<!-- MODAL --> 
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+
+       <div class="input-field">
+      <h3 style="margin: auto">Enter layer name to save</h3>
+      <input class = "validate"  type="text" id = "layerName" placeholder ="e.g. Tenor Harmony"/>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button onclick = "postLayer()">Save</button>
+    </div>
+  </div>
 
 
-<!--  
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
-<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script> 
-<script src="{{ url_for('static', filename='js/wavesurferMyEdits.js') }}"></script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ --><!-- <script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script> 
+ --><script src="{{ url_for('static', filename='js/wavesurferMyEdits.js') }}"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
  <script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
 <script src="{{ url_for('static', filename='js/liveRecord.js') }}"></script>

@@ -62,13 +62,12 @@ def save_layer(trackID):
 @login_required
 def del_layer(trackID,layerID):
 	track = Track.objects().get(id = ObjectId(trackID))	
-	if current_user.username == track.createdBy:
-		track.update(pull__layers__layerID=ObjectId(layerID))
-		track.save()
+	track.update(pull__layers__layerID=ObjectId(layerID))
+	track.save()
 
-		if len(track.layers)-1 == 0: #why is -1 necessary?
-			track.delete()
-			return redirect( url_for('track.all_tracks') )
+	if len(track.layers)-1 == 0: #why is -1 necessary?
+		track.delete()
+		return redirect( url_for('track.all_tracks') )
 	return redirect( url_for('track.track_page', trackID=trackID))
 
 
