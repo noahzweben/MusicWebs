@@ -21,7 +21,28 @@ hidden tracks will only be accessible by the creator and people with the link, u
 </div>
 
 <br>
+<div class="row center">
 <button class = "waves-effect deep-orange lighten-2 waves-light btn" id = "recordButton" onclick="toggleRecord()">Add Recording for New Track</button>
+</div>
+
+<div class="row center">
+<button class = "btn modal-trigger waves-effect deep-orange lighten-2 waves-light " data-target="modal1" id = "uploadButton" onclick="">Upload Audio to Start Track</button>
+</div>
+
+<!-- MODAL --> 
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+
+       <div class="input-field">
+      <h3 class="center-align">Select File to Upload</h3>
+      <input class = "validate"  type="file" id = "fileForm" accept=".wav,.m4a,.mp3/>">
+    </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="waves-effect waves-light btn deep-orange lighten-1" onclick = "newUpload()">Save</button>
+    </div>
+  </div>
 
 
 <div id = "layerInfo"> 
@@ -32,8 +53,6 @@ hidden tracks will only be accessible by the creator and people with the link, u
 
 
 </div> 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
-<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script> 
 
 <script src="{{ url_for('static', filename='js/wavesurferMyEdits.js') }}"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>

@@ -236,3 +236,9 @@ function makeClearer(i,button){
             button.style.opacity = 1;
     }
 }
+
+function toggleInteract(){
+    for (var i=0; i<waves.length; i++){
+        waves[i].params.interact = !(waves[i].params.interact);
+    }
+}

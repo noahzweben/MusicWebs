@@ -20,12 +20,14 @@ navigator.getUserMedia = (
 function toggleRecord(){
   if (isRecording) {
     stop();
+    toggleInteract();
     isRecording = false;
     $("#playButton").prop("disabled",false);
 
   } 
   else {
     record();
+    toggleInteract();
     isRecording = true;
     $("#playButton").prop("disabled",true);
   }
@@ -43,8 +45,11 @@ function record() {
     });
 
     playCountdown();
+    disableRecord();
     window.setTimeout(rec.record,3000);
     window.setTimeout(togglePlay,3000);
+    window.setTimeout(disableRecord,3000);
+
   }, function(err){
     console.log('Not supported');
   });
@@ -136,5 +141,9 @@ function tempDiv() {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
   });
+
+  function disableRecord(){
+    $("#recordButton").prop("disabled",!($("#recordButton").prop("disabled")));
+  }
           
 

@@ -39,7 +39,10 @@ function record() {
     });
 
     playCountdown();
+    disableRecord();
     window.setTimeout(rec.record,3000);
+    window.setTimeout(disableRecord,3000);
+
   }, function(err){
     console.log('Not supported');
   });
@@ -106,6 +109,48 @@ function newTrack() {
 
 
 
+function newUpload() {
+  var trackName = $("#nameForm").val();
+  var originalArtist = $("#artistForm").val();
+  var isHidden = $("#hiddenBox").is(':checked');
+  var myFile = document.getElementById("fileForm");
+
+
+
+  isHidden = isHidden ? 1 : 0;
+  
+  if (trackName.length !=0 && originalArtist.length !=0 && ('files' in myFile) && myFile.files.length !=0){
+    var postData = new FormData();
+    console.log(trackName);
+
+    postData.append("trackName", trackName);
+    postData.append("originalArtist", originalArtist);
+    postData.append("startTime", 0.0); 
+    postData.append("layerFile", myFile.files[0]);
+    postData.append("isHidden", isHidden);
+
+    var request = new XMLHttpRequest();
+    var path = "/track/new";
+    request.open("POST", path);
+    request.send(postData);
+
+    request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+        var obj = JSON.parse(request.responseText);
+        var url = obj.url;
+        window.location = url;
+    }
+  }
+}
+  else {
+    $('#modal1').closeModal();
+    $("#nameForm").css("border","1px solid red");
+    $("#artistForm").css("border","1px solid red");
+
+  }
+}
+
+
 
 function tempDiv() {
   var div = document.createElement("div");
@@ -135,3 +180,14 @@ function tempDiv() {
   div.appendChild(button);
   div.appendChild(button2);
 }
+
+
+ function disableRecord(){
+    $("#recordButton").prop("disabled",!($("#recordButton").prop("disabled")));
+  }
+
+
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
