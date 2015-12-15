@@ -125,10 +125,11 @@ button {
 }
 #howItWorks{
     position: relative;
-    margin: auto;
+    margin-left: auto;
     display: block;
     margin-top: -2.28em;
     color: white;
     font-size: 100px;
+    height: 120px;
     font-weight: 100;
 }
