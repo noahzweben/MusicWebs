@@ -3,8 +3,6 @@
 
   <nav>
     <div class="nav-wrapper white">
-
-
       <form id = "SearchForm" action="{{ url_for('track.search')}}" method = "post">
         <div class="input-field">
            <input id = "search" type="search" type="text" placeholder = "Search For Tracks" name="search" required />
@@ -25,7 +23,7 @@
                   {%if track.hidden == False or current_user.username == track.createdBy %}
                       <br>
                          <a href="{{ url_for('track.track_page', trackID=track.id) }}">
-                        <div class = "# white-text card-panel trackBox"> 
+                        <div class = "# white-text card-panel trackBox z-depth-2"> 
                         <h4>{{track.trackName}}</h4>
                         <ul>
                           <li> Original Artist: {{track.originalArtist}}

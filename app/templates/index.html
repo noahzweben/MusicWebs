@@ -78,10 +78,13 @@
             {%if not current_user.is_authenticated%}
             <a href="{{ url_for('login.oauth_authorize', provider='facebook') }}" class="signup-btn center waves-effect waves-light btn-large">Get Started with Facebook</a>
             {% endif %}
+              <a href="{{ url_for('home.howto_page') }}" class="center waves-effect waves-light btn">learn how to use</a>
           </div>
         </div>
       </div>
       <div class="parallax"><img src="/static/img/background.png"></div>
     </div>
+
+   
   </body>
 </html>

@@ -123,13 +123,12 @@ button {
     position: fixed;
 
 }
- 
- /*#recordButton {
+#howItWorks{
     position: relative;
-    display: block;
-    width: auto;
     margin: auto;
- }*/
-
-
- 
+    display: block;
+    margin-top: -2.28em;
+    color: white;
+    font-size: 100px;
+    font-weight: 100;
+}

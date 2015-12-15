@@ -14,7 +14,6 @@ def home_page():
     #tracks = Track.objects()
     return render_template('index.html')#, tracks = tracks)
 
-# @home.route('/<trackID>')
-# def track_page(trackID):
-#     track = Track.objects().get(id = ObjectId(myid))
-#     return render_template('track.html',track = track)
+@home.route('/howto')
+def howto_page():
+	return render_template('howto.html')
