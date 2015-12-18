@@ -131,13 +131,13 @@ button {
 }
 #howItWorks{
     position: relative;
-    margin-left: auto;
     display: block;
     margin-top: -2.23em;
     color: white;
     font-size: 150px;
     height: 200px;
     font-weight: 100;
+    min-width: 1000px;
 }
 
 .howtoHeader {
@@ -145,5 +145,8 @@ button {
     font-size: 80px;
     color: #FF856F;
 
+}
 
+.howToSection {
+    background: linear-gradient(white, #DFEBF2) ;
 }

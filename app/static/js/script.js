@@ -199,8 +199,14 @@ function grabListData(className, isNumber){
     }
 
 function togglePlay(){
-    if (!isPlaying) playAll(myTime);
-        else pauseAll()
+    if (!isPlaying) {
+        playAll(myTime);
+        $("#playButton").text("Pause");
+    }
+        else {
+        pauseAll();
+        $("#playButton").text("Play");
+    }
 }
 
 
@@ -216,7 +222,7 @@ function addMute() {
     $("#layerContainer div").each(function(){
         var button = document.createElement('button');
         button.innerText = "Mute";
-        // button.class = "waves-effect waves-light btn";
+        $(button).addClass("waves-effect waves-light btn");
         $(button).click(function(i){
             this.toggleMute();
             makeClearer(i,button);

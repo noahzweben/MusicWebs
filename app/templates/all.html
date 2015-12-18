@@ -23,7 +23,7 @@
                   {%if track.hidden == False or current_user.username == track.createdBy %}
                       <br>
                          <a href="{{ url_for('track.track_page', trackID=track.id) }}">
-                        <div class = "# white-text card-panel trackBox z-depth-2"> 
+                        <div class = "white-text card-panel trackBox hoverable"> 
                         <h4>{{track.trackName}}</h4>
                         <ul>
                           <li> Original Artist: {{track.originalArtist}}

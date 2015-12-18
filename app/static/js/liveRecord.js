@@ -23,6 +23,7 @@ function toggleRecord(){
     toggleInteract();
     isRecording = false;
     $("#playButton").prop("disabled",false);
+    $("#recordButton").text("Start Recording");
 
   } 
   else {
@@ -30,6 +31,8 @@ function toggleRecord(){
     toggleInteract();
     isRecording = true;
     $("#playButton").prop("disabled",true);
+    $("#recordButton").text("Stop Recording");
+
   }
 }
 
@@ -145,5 +148,5 @@ function tempDiv() {
   function disableRecord(){
     $("#recordButton").prop("disabled",!($("#recordButton").prop("disabled")));
   }
-          
+
 

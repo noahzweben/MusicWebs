@@ -20,11 +20,15 @@ function toggleRecord(){
   if (isRecording) {
     stop();
     isRecording = false;
+    $("#recordButton").text("Add Recording for New Track");
+
 
   } 
   else {
     record();
     isRecording = true;
+    $("#recordButton").text("Stop Recording");
+
   }
 }
 
@@ -153,6 +157,10 @@ function newUpload() {
 
 
 function tempDiv() {
+  $("#wave").removeClass("hide");
+  $("#playButton").removeClass("hide");
+  $("#playButton").text("Play");
+
   var div = document.createElement("div");
   div.innerText = "Temporary, delete or save before recording new layer"
   var container = document.getElementById("layerContainer");
@@ -165,6 +173,8 @@ function tempDiv() {
     $("#recordButton").prop("disabled",false);
     $(div).remove();
     $("#wave").css("display","none");
+    $("#wave").addClass("hide");
+    $("#playButton").addClass("hide");
 
     waves.pop();
     waveContainers.pop();waveContainers.pop();
