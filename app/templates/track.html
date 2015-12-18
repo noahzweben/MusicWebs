@@ -36,7 +36,7 @@
                                       <br>
                                       {% if current_user.username == layer.createdBy or current_user.username == track.createdBy %}
                                           <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Permanently delete layer" href="{{ url_for('track.del_layer', trackID = track.id, layerID = layer.layerID)}}"> 
-                                          <button class="waves-effect waves-light btn-floating deleteButton">Del</button></a>
+                                          <button class="waves-effect waves-light btn-floating editButton">Del</button></a>
                                       {% endif %}
                                   </div>
 

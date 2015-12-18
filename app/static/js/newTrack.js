@@ -166,7 +166,8 @@ function tempDiv() {
   var container = document.getElementById("layerContainer");
   container.appendChild(div);
   var button = document.createElement("button");
-  button.innerText = "Delete Recording"; 
+  button.innerText = "Del";
+  $(button).addClass("waves-effect waves-light btn-floating editButton"); 
   
   $(button).click(function(){
     waves[waves.length-1].destroy();
@@ -181,6 +182,8 @@ function tempDiv() {
   });
 
   var button2 = document.createElement("button");
+  $(button2).addClass("waves-effect waves-light btn-floating editButton"); 
+
   button2.innerText = "Save Recording";
   $(button2).click(function(){
     newTrack();

@@ -151,9 +151,11 @@ button {
     background: linear-gradient(white, #DFEBF2) ;
 }
 
-.muteButton {
+.editButton {
     font-size: .8em;
 }
-.deleteButton {
+
+.editButton-impt {
     font-size: .8em;
+    background-color: #FF856F; 
 }

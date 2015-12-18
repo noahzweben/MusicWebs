@@ -222,7 +222,7 @@ function addMute() {
     $("#layerContainer div").each(function(){
         var button = document.createElement('button');
         button.innerText = "Mute";
-        $(button).addClass("waves-effect waves-light btn-floating muteButton");
+        $(button).addClass("waves-effect waves-light btn-floating editButton");
         $(button).click(function(i){
             this.toggleMute();
             makeClearer(i,button);
