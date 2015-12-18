@@ -82,9 +82,9 @@ button {
 
 
 
- #layerInfo {
+/* #layerInfo {
     position: relative;
-}
+}*/
 #wave {
     display: inline-block ;
     margin-left: 200px;
@@ -111,7 +111,7 @@ button {
 }
 
 #layerContainer div {
-    height: 99px;
+    height: 100px;
     margin: 0px;
     padding-left: 1em;
     border: 1px solid #FF856F;
@@ -149,4 +149,11 @@ button {
 
 .howToSection {
     background: linear-gradient(white, #DFEBF2) ;
+}
+
+.muteButton {
+    font-size: .8em;
+}
+.deleteButton {
+    font-size: .8em;
 }
